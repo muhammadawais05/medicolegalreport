@@ -21,6 +21,7 @@ class CreateAccidents < ActiveRecord::Migration[7.0]
       t.boolean :able_to_exit_your_vehicle_unaided
       t.boolean :vehicle_fitted_with_head_restraint
       t.string :description_of_nonroad_traffice_accident
+      t.references :patient, null: false, foreign_key: true
 
       t.timestamps
     end

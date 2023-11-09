@@ -17,6 +17,7 @@ class CreateMedicalHistories < ActiveRecord::Migration[7.0]
       t.boolean :similar_injuries_since_index_accident
       t.string :which_painkiller_is_comsuming_before_accident
       t.boolean :accident_flared_up_previous_mdeical_condition
+      t.references :patient, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -25,6 +25,7 @@ class CreateInjuriesEffects < ActiveRecord::Migration[7.0]
       t.boolean :any_difficulty_with_house_work
       t.boolean :suffered_psychological_sysptoms
       t.boolean :psychological_symptoms_resolved
+      t.references :patient, null: false, foreign_key: true
 
       t.timestamps
     end

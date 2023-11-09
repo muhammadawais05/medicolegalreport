@@ -5,6 +5,7 @@ class CreateInjuries < ActiveRecord::Migration[7.0]
       t.date :started_in
       t.date :resolved_in
       t.boolean :pain_resolved
+      t.references :patient, null: false, foreign_key: true
 
       t.timestamps
     end
