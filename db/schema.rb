@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_06_191312) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -156,6 +156,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_06_191312) do
     t.string "email"
     t.string "state"
     t.string "sur_name"
+    t.string "form_link"
     t.string "first_name"
     t.string "ocuupation"
     t.string "postal_code"
@@ -165,9 +166,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_06_191312) do
     t.boolean "shortness_of_breath"
     t.boolean "loss_of_taste_or_smell"
     t.boolean "persistnt_pain_in_chest"
+    t.integer "form_status", default: 0
     t.boolean "travelled_abroad_during_2022"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_patients_on_admin_user_id"
   end
 
   create_table "treatments", force: :cascade do |t|
@@ -202,4 +206,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_06_191312) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "patients", "admin_users"
 end
