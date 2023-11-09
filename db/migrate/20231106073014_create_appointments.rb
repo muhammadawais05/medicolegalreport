@@ -9,6 +9,7 @@ class CreateAppointments < ActiveRecord::Migration[7.0]
       t.string :other_identity_proof
       t.integer :visit_after_accident
       t.string :other_hospital_visited_after_accident
+      t.references :patient, null: false, foreign_key: true
 
       t.timestamps
     end

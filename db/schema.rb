@@ -35,8 +35,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "able_to_exit_your_vehicle_unaided"
     t.boolean "vehicle_fitted_with_head_restraint"
     t.string "description_of_nonroad_traffice_accident"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_accidents_on_patient_id"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -74,8 +76,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.string "other_identity_proof"
     t.integer "visit_after_accident"
     t.string "other_hospital_visited_after_accident"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
   create_table "injuries", force: :cascade do |t|
@@ -83,8 +87,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.date "started_in"
     t.date "resolved_in"
     t.boolean "pain_resolved"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_injuries_on_patient_id"
   end
 
   create_table "injuries_effects", force: :cascade do |t|
@@ -112,8 +118,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "any_difficulty_with_house_work"
     t.boolean "suffered_psychological_sysptoms"
     t.boolean "psychological_symptoms_resolved"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_injuries_effects_on_patient_id"
   end
 
   create_table "medical_histories", force: :cascade do |t|
@@ -133,8 +141,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "similar_injuries_since_index_accident"
     t.string "which_painkiller_is_comsuming_before_accident"
     t.boolean "accident_flared_up_previous_mdeical_condition"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_medical_histories_on_patient_id"
   end
 
   create_table "opinions", force: :cascade do |t|
@@ -146,8 +156,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "consequences_of_physical_injuries"
     t.boolean "implact_of_previous_medical_history"
     t.boolean "effect_of_injurt_on_claimants_work_reasonable"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_opinions_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -202,9 +214,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "mode_of_transport_to_ae"
     t.string "treatment_additional_details_expert_use"
     t.string "treatment_additional_details_expert_view"
+    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_treatments_on_patient_id"
   end
 
+  add_foreign_key "accidents", "patients"
+  add_foreign_key "appointments", "patients"
+  add_foreign_key "injuries", "patients"
+  add_foreign_key "injuries_effects", "patients"
+  add_foreign_key "medical_histories", "patients"
+  add_foreign_key "opinions", "patients"
   add_foreign_key "patients", "admin_users"
+  add_foreign_key "treatments", "patients"
 end
