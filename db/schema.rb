@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
   create_table "appointments", force: :cascade do |t|
     t.date "date"
     t.integer "solicitors_ref"
+    t.integer "identity_proof"
     t.string "examination_venue"
     t.boolean "any_time_off_work"
     t.string "report_requested_by"
@@ -177,8 +178,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "suffering_cough"
     t.boolean "shortness_of_breath"
     t.boolean "loss_of_taste_or_smell"
-    t.boolean "persistnt_pain_in_chest"
     t.integer "form_status", default: 0
+    t.boolean "persistant_pain_in_chest"
     t.boolean "travelled_abroad_during_2022"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
