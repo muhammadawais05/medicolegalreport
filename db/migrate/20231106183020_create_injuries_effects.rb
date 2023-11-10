@@ -20,11 +20,13 @@ class CreateInjuriesEffects < ActiveRecord::Migration[7.0]
       t.string :how_long_sleeping_problem
       t.boolean :any_work_adaption_for_pain
       t.boolean :wish_to_provide_futher_info
-      t.boolean :acitivies_limited_by_symptoms
+      t.boolean :activities_limited_by_symptoms
       t.string :activities_restricted_by_injury
       t.boolean :any_difficulty_with_house_work
       t.boolean :suffered_psychological_sysptoms
       t.boolean :psychological_symptoms_resolved
+      t.string :difficulties_at_home, array: true, default: []
+      t.string :difficulties_at_work, array: true, default: []
       t.references :patient, null: false, foreign_key: true
 
       t.timestamps

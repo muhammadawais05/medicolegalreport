@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_11_113159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "able_to_exit_your_vehicle_unaided"
     t.boolean "vehicle_fitted_with_head_restraint"
     t.string "description_of_nonroad_traffice_accident"
+    t.string "mechanisms_of_injury", default: [], array: true
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,11 +84,50 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
   end
 
+  create_table "clinical_examinations", force: :cascade do |t|
+    t.boolean "neck_spasm"
+    t.boolean "neck_scars"
+    t.boolean "neck_crepitus"
+    t.boolean "neck_reflexes"
+    t.boolean "neck_sensations"
+    t.boolean "neck_deformities"
+    t.boolean "back_spasm"
+    t.boolean "back_scars"
+    t.boolean "back_crepitus"
+    t.boolean "back_reflexes"
+    t.boolean "back_sensations"
+    t.boolean "back_deformities"
+    t.bigint "patient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_clinical_examinations_on_patient_id"
+  end
+
   create_table "injuries", force: :cascade do |t|
-    t.string "name"
-    t.date "started_in"
-    t.date "resolved_in"
-    t.boolean "pain_resolved"
+    t.string "injury_one_name"
+    t.string "injury_one_started_in"
+    t.string "injury_one_resolved_in"
+    t.boolean "injury_one_pain_resolved"
+    t.string "injury_two_name"
+    t.string "injury_two_started_in"
+    t.string "injury_two_resolved_in"
+    t.boolean "injury_two_pain_resolved"
+    t.string "injury_three_name"
+    t.string "injury_three_started_in"
+    t.string "injury_three_resolved_in"
+    t.boolean "injury_three_pain_resolved"
+    t.string "injury_four_name"
+    t.string "injury_four_started_in"
+    t.string "injury_four_resolved_in"
+    t.boolean "injury_four_pain_resolved"
+    t.string "injury_five_name"
+    t.string "injury_five_started_in"
+    t.string "injury_five_resolved_in"
+    t.boolean "injury_five_pain_resolved"
+    t.string "injury_six_name"
+    t.string "injury_six_started_in"
+    t.string "injury_six_resolved_in"
+    t.boolean "injury_six_pain_resolved"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -114,11 +154,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.string "how_long_sleeping_problem"
     t.boolean "any_work_adaption_for_pain"
     t.boolean "wish_to_provide_futher_info"
-    t.boolean "acitivies_limited_by_symptoms"
+    t.boolean "activities_limited_by_symptoms"
     t.string "activities_restricted_by_injury"
     t.boolean "any_difficulty_with_house_work"
     t.boolean "suffered_psychological_sysptoms"
     t.boolean "psychological_symptoms_resolved"
+    t.string "difficulties_at_home", default: [], array: true
+    t.string "difficulties_at_work", default: [], array: true
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -133,7 +175,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.string "what_increases_pain"
     t.string "had_injection_for_pain"
     t.string "has_operation_for_pain"
-    t.string "previous_mdeical_condition"
+    t.string "previous_medical_condition"
     t.boolean "body_pain_before_accident"
     t.string "history_additional_details"
     t.boolean "past_similar_road_accident"
@@ -141,7 +183,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.string "body_parts_pain_before_this_accident"
     t.boolean "similar_injuries_since_index_accident"
     t.string "which_painkiller_is_comsuming_before_accident"
-    t.boolean "accident_flared_up_previous_mdeical_condition"
+    t.boolean "accident_flared_up_previous_medical_condition"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -152,10 +194,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "severity_of_injuries"
     t.string "diagnosis_and_causation"
     t.boolean "complications_in_future"
+    t.boolean "suffered_inconviniences"
     t.boolean "claimant_life_expentancy"
-    t.boolean "accident_sice_index_accident"
+    t.boolean "accident_since_index_accident"
     t.boolean "consequences_of_physical_injuries"
-    t.boolean "implact_of_previous_medical_history"
+    t.boolean "impact_of_previous_medical_history"
     t.boolean "effect_of_injurt_on_claimants_work_reasonable"
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
@@ -215,6 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
     t.boolean "mode_of_transport_to_ae"
     t.string "treatment_additional_details_expert_use"
     t.string "treatment_additional_details_expert_view"
+    t.string "gp_arrangements", default: [], array: true
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -223,6 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_062642) do
 
   add_foreign_key "accidents", "patients"
   add_foreign_key "appointments", "patients"
+  add_foreign_key "clinical_examinations", "patients"
   add_foreign_key "injuries", "patients"
   add_foreign_key "injuries_effects", "patients"
   add_foreign_key "medical_histories", "patients"
