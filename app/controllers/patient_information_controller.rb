@@ -1,7 +1,8 @@
 class PatientInformationController < ApplicationController
-  before_action :find_patient, only: :update
+  before_action :find_patient
 
   def edit
+    @patient_id = @patient.id if @patient
   end
 
   def update
