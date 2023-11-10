@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "admin/dashboard#index"
+  resources :patient_information, only: %i[edit update]
 end

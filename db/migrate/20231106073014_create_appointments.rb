@@ -3,6 +3,7 @@ class CreateAppointments < ActiveRecord::Migration[7.0]
     create_table :appointments do |t|
       t.date :date
       t.integer :solicitors_ref
+      t.integer :identity_proof
       t.string :examination_venue
       t.boolean :any_time_off_work
       t.string :report_requested_by

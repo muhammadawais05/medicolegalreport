@@ -1,0 +1,193 @@
+<div class="d-flex justify-content-around">
+  <div>
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight"><%= image_tag "medico logo.jpeg", width: '150', height: '150' %></div>
+      <div class="d-flex flex-column bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+          <h2>RISK ANALYSIS FORM &</h2>
+        </div>
+        <div class="p-2 bd-highlight">MEDICO-LEGAL QUESTIONNAIRE</div>
+      </div>
+    </div>
+    <hr/>
+    <br/>
+    <hr/>
+    <h3>COVID -19 RISK ANALYSIS DECLARATION</h3>
+    <p>Please complete the information based on honest and true health information which is vital to keep you and the other clinic users safe.</p>
+    <hr/>
+    <div class="d-flex justify-content-center">
+      <p>All fields marked with * are required and must be filled.</p>
+    </div>
+    <br/>
+    <%= form_with url: patient_information_path(1), method: :put do |f| %>
+      <div class="form-group">
+        <%= f.label 'Have you travelled abroad during 2022?*' %>
+        <div class="form-check">
+          <%= f.radio_button :travelled_abroad_during_2022, true, checked: true, class: 'form-check-input' %>
+          <%= f.label 'Yes', class: 'form-check-label' %>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :travelled_abroad_during_2022, false, class: 'form-check-input' %>
+          <%= f.label 'No', class: 'form-check-label' %>
+        </div>
+        <br/>
+        <%= f.label 'Please state whether you are experiencing any of the following' %>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Yes</th>
+              <th scope="col">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">Fever</td>
+              <td><%= f.radio_button :suffering_fever, true, checked: true, class: 'form-check-input' %></td>
+              <td><%= f.radio_button :suffering_fever, false, class: 'form-check-input' %></td>
+            </tr>
+            <tr>
+              <td scope="row">Loss of taste or smell</td>
+              <td><%= f.radio_button :loss_of_taste_or_smell, true, checked: true, class: 'form-check-input' %></td>
+              <td><%= f.radio_button :loss_of_taste_or_smell, false, class: 'form-check-input' %></td>
+            </tr>
+            <tr>
+              <td scope="row">Cough</td>
+              <td><%= f.radio_button :suffering_cough, true, checked: true, class: 'form-check-input' %></td>
+              <td><%= f.radio_button :suffering_cough, false, class: 'form-check-input' %></td>
+            </tr>
+            <tr>
+              <td scope="row">Shortness of breath</td>
+              <td><%= f.radio_button :shortness_of_breath, true, checked: true, class: 'form-check-input' %></td>
+              <td><%= f.radio_button :shortness_of_breath, false, class: 'form-check-input' %></td>
+            </tr>
+            <tr>
+              <td scope="row">Persistant pain in chest</td>
+              <td><%= f.radio_button :persistant_pain_in_chest, true, checked: true, class: 'form-check-input' %></td>
+              <td><%= f.radio_button :persistant_pain_in_chest, false, class: 'form-check-input' %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br/>
+      <hr/>
+      <h3>VITAL INFORMATION</h3>
+      <p>Please read this information carefully</p>
+      <hr/>
+      <h6>1. ALL PAGES MUST BE FULLY COMPLETED BEFORE THE EXAMINATION. INCOMPLETE FORMS WILL NOT BE ACCEPTED AND EXAMINATION WILL NOT TAKE PLACE.</h6>
+      <p>All injuries should be mentioned to the specialist.</p>
+      <p>Injuries or any other relevant information that is not mentioned at the consultation will not be added to the report, later on, so PLEASE provide full information.</p>
+      <p>Please answer all the questions completely and accurately.</p>
+      <br/>
+      <p>2. Mr Moholkar is an independent Orthopaedic Surgeon and does not work for your solicitors or insurance company and will not be treating you for your sufferings.</p>
+      <p>The interview is required to prepare your personal injury report.</p>
+      <br/>
+      <p>3. Please bring 2 forms of ID one of them must be a valid photo ID (passport/driving license). ID cannot be provided after the appointment time.</p>
+      <br/>
+      <p>4. You should be present at the venue at least 10 minutes before your appointment time, and this questionnaire should be completed before the interview.</p>
+      <p>If you are late for your appointment, the interview will not occur.</p>
+      <br/>
+      <h5>5. CANCELLATION OF APPOINTMENT</h5>
+      <h5>If the form is not completed at least 24 hours before your appointment time, the appointment will automatically be cancelled.</h5>
+      <br/>
+      <br/>
+      <hr/>
+      <div class="d-flex justify-content-center">
+        <p>This report will be addressed to the court</p>
+      </div>
+      <hr/>
+      <div class="d-flex justify-content-center">
+        <p>All fields marked with * are required and must be filled.</p>
+      </div>
+      <div class="form-check mt-4">
+        <%= f.label 'Name *', class: 'form-label' %>
+        <div class="d-flex justify-content-around">
+          <%= f.text_field :first_name, class: 'form-control', required: true, placeholder: "First Name" %>
+          <%= f.text_field :sur_name, class: 'form-control', required: true, placeholder: "Sur Name" %>
+        </div>
+      </div>
+      <div class="form-check mt-4">
+        <%= f.label 'Date of Birth *', class: 'form-label' %>
+        <%= f.date_field :dob, class: 'form-control w-100', required: true, placeholder: "Date of Birth" %>
+      </div>
+      <div class="form-check mt-4">
+        <%= f.label 'Address *', class: 'form-label' %>
+        <div class="d-flex justify-content-around">
+          <%= f.text_field :city, class: 'form-control', required: true, placeholder: "City" %>
+          <%= f.text_field :state, class: 'form-control', required: true, placeholder: "State" %>
+          <%= f.number_field :postal_code, class: 'form-control', required: true, placeholder: "Postal Code" %>
+        </div>
+      </div>
+      <div class="form-check mt-4">
+        <%= f.label 'Current occupation *', class: 'form-label' %>
+        <%= f.text_field :ocuupation, class: 'form-control w-100', required: true, placeholder: "Current occupation" %>
+      </div>
+      <%= f.fields_for :accident_attributes do |accident_form| %>
+        <div class="form-check mt-4">
+          <%= accident_form.label 'Date of Accident *', class: 'form-label' %>
+          <%= accident_form.date_field :date, class: 'form-control w-100', required: true, placeholder: "Date of Accident" %>
+        </div>
+      <% end %>
+      <%= f.fields_for :appointment_attributes do |appointment_form| %>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Appointment Date (Date of Examnination)', class: 'form-label' %>
+          <%= appointment_form.date_field :date, class: 'form-control w-100', placeholder: "Appoinment Date" %>
+        </div>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Venue of Examnination *', class: 'form-label' %>
+          <%= appointment_form.text_field :examination_venue, class: 'form-control w-100', required: true, placeholder: "Venue of Examnination" %>
+        </div>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Have you taken any time off work? *' %>
+          <div class="form-check">
+            <%= appointment_form.radio_button :any_time_off_work, true, checked: true, class: 'form-check-input' %>
+            <%= appointment_form.label 'Yes', class: 'form-check-label' %>
+          </div>
+          <div class="form-check">
+            <%= appointment_form.radio_button :any_time_off_work, false, class: 'form-check-input' %>
+            <%= appointment_form.label 'No', class: 'form-check-label' %>
+          </div>
+        </div>
+        <div class="form-check mt-4 mb-4">
+          <%= appointment_form.label 'Visit After Accident', class: 'form-label' %>
+          <div class="d-flex justify-content-between">
+            <% Appointment.visit_after_accidents.keys.each do |value| %>
+              <div class="form-check">
+                <%= appointment_form.radio_button :visit_after_accident, value, class: 'form-check-input' %>
+                <%= appointment_form.label value.humanize, class: 'form-check-label' %>
+              </div>
+            <% end %>
+          </div>
+          <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', required: true, placeholder: "Other hospital, if any" %>
+        </div>
+        <hr/>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Report requested by (Solicitors/Claim management company) *', class: 'form-label' %>
+          <%= appointment_form.text_field :report_requested_by, class: 'form-control w-100', required: true, placeholder: "Report requested by" %>
+        </div>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Solicitors ref *', class: 'form-label' %>
+          <%= appointment_form.number_field :solicitors_ref, class: 'form-control w-100', required: true, placeholder: "Solicitors reference" %>
+          <p>(Please refer to a letter from your solicitors)</p>
+        </div>
+        <div class="form-check mt-4">
+          <%= appointment_form.label 'Proof of ID seen', class: 'form-label' %>
+          <div class="d-flex justify-content-between">
+            <% Appointment.identity_proofs.keys.each do |value| %>
+              <div class="form-check">
+                <%= appointment_form.radio_button :identity_proof, value, class: 'form-check-input' %>
+                <%= appointment_form.label value.humanize, class: 'form-check-label' %>
+              </div>
+            <% end %>
+          </div>
+          <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', required: true, placeholder: "Other proof, if any" %>
+        </div>
+      <% end %>
+      <br/>
+      <br/>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      <br/>
+      <br/>
+    <% end %>
+  </div>
+</div>

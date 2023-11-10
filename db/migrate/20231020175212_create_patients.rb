@@ -15,8 +15,8 @@ class CreatePatients < ActiveRecord::Migration[7.0]
       t.boolean :suffering_cough
       t.boolean :shortness_of_breath
       t.boolean :loss_of_taste_or_smell
-      t.boolean :persistnt_pain_in_chest
       t.integer :form_status, default: 0
+      t.boolean :persistant_pain_in_chest
       t.boolean :travelled_abroad_during_2022
 
       t.timestamps
