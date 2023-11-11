@@ -159,7 +159,7 @@
                 </div>
               <% end %>
             </div>
-            <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', required: true, placeholder: "Other hospital, if any" %>
+            <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', placeholder: "Other hospital, if any" %>
           </div>
           <hr/>
           <div class="form-check mt-4">
@@ -181,7 +181,1279 @@
                 </div>
               <% end %>
             </div>
-            <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', required: true, placeholder: "Other proof, if any" %>
+            <%= appointment_form.text_field :other_hospital_visited_after_accident, class: 'form-control w-100', placeholder: "Other proof, if any" %>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>2. ACCIDENT DETAILS</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <p>All fields marked with * are required and must be filled.</p>
+        </div>
+        <%= f.fields_for :accident_attributes do |accident_form| %>
+          <div class="form-check mt-4">
+            <%= accident_form.label '2.1 Mechanism of Injury *', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <%= accident_form.collection_check_boxes :mechanisms_of_injury, Accident::MECHANISMS_OF_INJURY, :to_s, :to_s do |cb| %>
+                <div class="form-check">
+                  <%= cb.check_box %>
+                  <%= cb.text %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="m-4">
+            <h6>2.2 IF YOU HAVE SUFFERED WITH A RTA (CAR/VAN ACCIDENT), PLEASE COMPLETE THIS SECTION.</h6>
+            <h6>IF IT IS NOT AN RTA, PLEASE SKIP THIS SECTION AND COMPLETE THE NEXT FREETEXT 2.2 SECTION BELOW</h6>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '1. Were you the driver or passenger in the vehicle involved in the accident', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.accident_victims.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :accident_victim, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '2. Was your vehicle the following?', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.vehicles.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :vehicle, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '3. Was the third party vehicle the following?', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.third_party_vehicles.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :third_party_vehicle, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '4. Were you seat belted?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :seat_belted, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :seat_belted, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '5. Were you jolted forwards and backwards with force?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :jolted_fwd_or_bwd, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :jolted_fwd_or_bwd, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '6. Site of Accident:', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.site_of_accidents.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :site_of_accident, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '7. Vehicle fitted with Head restraint?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '8. What was your travelling speed?', class: 'form-label' %>
+            <div class="d-flex justify-content-between w-50">
+              <% Accident.travelling_speeds.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :travelling_speed, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label 'Your approximate speed', class: 'form-label' %>
+            <%= accident_form.text_field :approximate_speed, class: 'form-control w-100', placeholder: "mph." %>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label 'Third party vehicles speed', class: 'form-label' %>
+            <%= accident_form.text_field :third_party_vehicle_speed, class: 'form-control w-100', placeholder: "mph." %>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '9. Was your vehicle', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.vehicle_categories.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :vehicle_category, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '10. Where were you looking at the time of the impact?', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.where_were_you_looking_ats.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :where_were_you_looking_at, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '11. Did you hit the interior of the car?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :hit_the_car_interior, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :hit_the_car_interior, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= accident_form.text_field :body_hit_vehicle_part, class: 'form-control w-100', placeholder: "Body part" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '12. Was the airbag deployed?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :air_bag_deployed, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :air_bag_deployed, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '13. Who attended the scene of the accident', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.accident_scene_attendees.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :accident_scene_attendees, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '14. Were you able to exit your vehicle unaided' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, true, checked: true, class: 'form-check-input' %>
+                <%= accident_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, false, class: 'form-check-input' %>
+                <%= accident_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '15. Your state immediately after the accident', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Accident.state_after_accidents.keys.each do |value| %>
+                <div class="form-check">
+                  <%= accident_form.radio_button :state_after_accident, value, class: 'form-check-input' %>
+                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= accident_form.label '2.2 BRIEF DESCRIPTION OF NON ROAD TRAFFIC ACCIDENT (COMPLETION OF THIS SECTION IS MANDATORY): PLS WITE NA IF YOU HAVE COMPLETED PREVIOUS 2.2*', class: 'form-label' %>
+            <%= accident_form.text_area :description_of_nonroad_traffice_accident, class: 'form-control w-100', placeholder: "Brief description" %>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>3. INJURIES SUSTAINED</h2>
+        <p>(SPECIFY THE PARTS INJURED AND THE SIDE OF THE INJURY)</p>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <p>All fields marked with * are required and must be filled.</p>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+          <%= image_tag "injuries sample.jpeg" %>
+        </div>
+        <%= f.fields_for :injury_attributes do |injury_form| %>
+          <div class="form-check mt-4">
+            <%= injury_form.label '1. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_one_name, class: 'form-control w-100', required: true, placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_one_started_in, class: 'form-control w-100', required: true, placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_one_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_one_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_one_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label '2. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_two_name, class: 'form-control w-100', placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_two_started_in, class: 'form-control w-100', placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_two_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_two_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_two_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label '3. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_three_name, class: 'form-control w-100', placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_three_started_in, class: 'form-control w-100', placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_three_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_three_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_three_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label '4. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_four_name, class: 'form-control w-100', placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_four_started_in, class: 'form-control w-100', placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_four_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_four_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_four_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label '5. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_five_name, class: 'form-control w-100', placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_five_started_in, class: 'form-control w-100', placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_five_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_five_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_five_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label '6. Injury Name *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_six_name, class: 'form-control w-100', placeholder: "Injury name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Started in *', class: 'form-label' %>
+            <%= injury_form.text_field :injury_six_started_in, class: 'form-control w-100', placeholder: "Minutes/Days/Weeks" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Has the pain resolved?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_six_pain_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= injury_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= injury_form.radio_button :injury_six_pain_resolved, false, class: 'form-check-input' %>
+                <%= injury_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= injury_form.label 'Resolved in (EXPERTS USE)', class: 'form-label' %>
+            <%= injury_form.text_field :injury_six_resolved_in, class: 'form-control w-100', placeholder: "months/years" %>
+          </div>
+          <div class="m-4">
+            <h6>Pain before accident</h6>
+          </div>
+          <div class="m-4">
+            <h6>Please check the box and initial below it if you have not suffered with any more injuries other than mentioned in paragraph 3.</h6>
+            <h6>Please note that if you do not mention any injuries suffered as a result of the accident you are claiming for, it will not be added to the report later as the surgeon </h6>
+            <h6>would not have had an opportunity to take history and examine the relevant injured body part*</h6>
+          </div>
+          <div class="m-4">
+            <h6>PAIN SCORED AS 0 IF NO PAIN AND 10 WHEN MOST SEVERE PAIN</h6>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>4. TREATMENT DETAILS</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <p>All fields marked with * are required and must be filled.</p>
+        </div>
+        <%= f.fields_for :treatment_attributes do |treatment_form| %>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.1a Did you go to A&E *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :went_to_ae, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :went_to_ae, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.text_field :hospital_name, class: 'form-control w-100', placeholder: "Hospital name" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Mode of transport to the AE *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :mode_of_transport_to_ae, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :mode_of_transport_to_ae, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.text_field :other_mode_of_transport, class: 'form-control w-100', placeholder: "Other" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.1b Date of attendance *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :date_of_attendance, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :date_of_attendance, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.date_field :attendance_date, class: 'form-control w-100', placeholder: "Attendance date" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.1c What happened at the AE? *', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Treatment.ae_tests.keys.each do |value| %>
+                <div class="form-check">
+                  <%= treatment_form.radio_button :ae_test, value, class: 'form-check-input' %>
+                  <%= treatment_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.1d Were you admitted to the Hospital *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :admitted_to_hospital, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :admitted_to_hospital, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.label 'If yes for how many days (EXPERTS USE)' %>
+            <%= treatment_form.number_field :admitted_days, class: 'form-control w-100', placeholder: "Number of days" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.1e Did you need any operations *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :need_any_operation, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :need_any_operation, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Additional details about treatment (EXPERTS USE) *' %>
+            <%= treatment_form.text_area :treatment_additional_details_expert_use, class: 'form-control w-100', placeholder: "Additional details" %>
+          </div>
+          <div class="form-check mt-4">
+            <h5>4.2 G.P TREATMENT:</h5>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.2.1. Did you visit the GP immediately after the accident *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :gp_visit_after_accident, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :gp_visit_after_accident, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.label 'If no, why not? *' %>
+            <%= treatment_form.text_field :no_gp_visit_reason, class: 'form-control w-100', placeholder: "Reason" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Date of First visit after the accident' %>
+            <%= treatment_form.date_field :first_visit_after_accident, class: 'form-control w-100', placeholder: "First visit date" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Number of further visits (For Experts view)' %>
+            <%= treatment_form.number_field :further_visits_count, class: 'form-control w-100', placeholder: "Further visits count" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.2.2. Were Painkillers prescribed?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :painkiller_prescribed, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :painkiller_prescribed, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.2.3. Did the GP ARRANGE any of the following', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <%= treatment_form.collection_check_boxes :gp_arrangements, Treatment::GP_ARRANGEMENTS, :to_s, :to_s do |cb| %>
+                <div class="form-check">
+                  <%= cb.check_box %>
+                  <%= cb.text %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Additional details about the Treatment Details (For experts view)' %>
+            <%= treatment_form.text_area :treatment_additional_details_expert_view, class: 'form-control w-100', placeholder: "Additional details" %>
+          </div>
+          <div class="form-check mt-4">
+            <h5>4.3 ALTERNATIVE TREATMENT:</h5>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.3.1 Did you have*', class: 'form-label' %>
+            <div class="d-flex justify-content-between">
+              <% Treatment.exercises.keys.each do |value| %>
+                <div class="form-check">
+                  <%= treatment_form.radio_button :exercise, value, class: 'form-check-input' %>
+                  <%= treatment_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.3.2.If yes, how many sessions?' %>
+            <%= treatment_form.number_field :total_sessions, class: 'form-control w-100', placeholder: "Number of sessions" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.3b Was this treatment completed' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :treatment_completed, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :treatment_completed, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.text_field :treatment_comments, class: 'form-control w-100', placeholder: "Treatment comments" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.3c Did the symptoms improve' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :symptom_imporoved, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :symptom_imporoved, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= treatment_form.text_field :symptom_comments, class: 'form-control w-100', placeholder: "Symptoms comments" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.4. Name and place of the Physiotherapist (For the experts view)' %>
+            <%= treatment_form.text_area :physiotherapist_data, class: 'form-control w-100', placeholder: "Physiotherapist data" %>
+          </div>
+          <div class="form-check mt-4">
+            <h5>4.4 CURRENT TREATMENT:</h5>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.4.1. Are you taking any Pain medications for this injury?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= treatment_form.radio_button :utilizing_painkiller, true, checked: true, class: 'form-check-input' %>
+                <%= treatment_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= treatment_form.radio_button :utilizing_painkiller, false, class: 'form-check-input' %>
+                <%= treatment_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label '4.4.2. If yes, what are they?' %>
+            <%= treatment_form.text_field :painkillers, class: 'form-control w-100', placeholder: "Painkillers" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= treatment_form.label 'Additional relevant details about treatment' %>
+            <%= treatment_form.text_area :treatment_relevant_data, class: 'form-control w-100', placeholder: "Treatment relevant data" %>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>5. PAST MEDICAL HISTORY</h2>
+        <p>PLEASE ANSWER THE QUESTION FACTUALLY AND TRUTHFULLY </p>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <p>All fields marked with * are required and must be filled.</p>
+        </div>
+        <%= f.fields_for :medical_history_attributes do |history_form| %>
+          <div class="form-check mt-4">
+            <%= history_form.label '5.1 Any previous similar (Road traffic/Personal injury) accident?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= history_form.radio_button :past_similar_road_accident, true, checked: true, class: 'form-check-input' %>
+                <%= history_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= history_form.radio_button :past_similar_road_accident, false, class: 'form-check-input' %>
+                <%= history_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= history_form.label 'If yes, when and details please' %>
+            <%= history_form.text_field :past_road_accident, class: 'form-control w-100', placeholder: "Past road accident, if any" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label '5.2 Did you claim for the injuries *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= history_form.radio_button :claim_the_injuries, true, checked: true, class: 'form-check-input' %>
+                <%= history_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= history_form.radio_button :claim_the_injuries, false, class: 'form-check-input' %>
+                <%= history_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label '5.3 Have you had any similar injuries since the index accident? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= history_form.radio_button :similar_injuries_since_index_accident, true, checked: true, class: 'form-check-input' %>
+                <%= history_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= history_form.radio_button :similar_injuries_since_index_accident, false, class: 'form-check-input' %>
+                <%= history_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= history_form.label 'If yes, details' %>
+            <%= history_form.text_field :similar_injuries, class: 'form-control w-100', placeholder: "Similar injuries, if any" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label '5.4 Has the accident caused a flare up of any previous medical condition or injury? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= history_form.radio_button :accident_flared_up_previous_mdeical_condition, true, checked: true, class: 'form-check-input' %>
+                <%= history_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= history_form.radio_button :accident_flared_up_previous_mdeical_condition, false, class: 'form-check-input' %>
+                <%= history_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= history_form.label 'If yes, details' %>
+            <%= history_form.text_field :previous_medical_condition, class: 'form-control w-100', placeholder: "Flare up of any previous medical condition, if any" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label '5.5 Have you suffered from previous pain in the body part that was injured in the index accident? ' %><br/>
+            <%= history_form.label 'Please note that if you say no and evidence of this in noted in the medical records, this will go as non-disclosure *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= history_form.radio_button :body_pain_before_accident, true, checked: true, class: 'form-check-input' %>
+                <%= history_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= history_form.radio_button :body_pain_before_accident, false, class: 'form-check-input' %>
+                <%= history_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= history_form.label 'If yes, please write all the appropriate body parts that you had pain in before this accident' %>
+            <%= history_form.text_field :body_parts_pain_before_this_accident, class: 'form-control w-100', placeholder: "List of body parts" %>
+          </div>
+          <div class="form-check mt-4">
+            <p>If you have answered yes to the previous questions please answer this section (FOR EXPERTS USE)</p>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'Type a pain' %>
+            <%= history_form.text_field :type_a_pain, class: 'form-control w-100', placeholder: "Pain" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'What would increase the pain?' %>
+            <%= history_form.text_field :what_increases_pain, class: 'form-control w-100', placeholder: "What increases pain" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'What painkillers were you taking for this pain before the accident?' %>
+            <%= history_form.text_field :which_painkiller_is_comsuming_before_accident, class: 'form-control w-100', placeholder: "Painkiller comsumption before accident" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'Have you had physiotherapy for this pain?' %>
+            <%= history_form.text_field :had_physiothereapy_for_pain, class: 'form-control w-100', placeholder: "Physiothereapy for pain" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'Have you had injections for this pain?' %>
+            <%= history_form.text_field :had_injection_for_pain, class: 'form-control w-100', placeholder: "Injections for the pain" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'Have you had any operations for this pain?' %>
+            <%= history_form.text_field :has_operation_for_pain, class: 'form-control w-100', placeholder: "Operation for the pain" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= history_form.label 'Additional details' %>
+            <%= history_form.text_area :history_additional_details, class: 'form-control w-100', placeholder: "Additional Details" %>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>6. EFFECTS OF INJURIES ON WORK AND LIFE STYLE</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <p>All fields marked with * are required and must be filled.</p>
+        </div>
+        <%= f.fields_for :injuries_effect_attributes do |effect_form| %>
+          <div class="form-check mt-4">
+            <h6>6.1 PSYCHOLOGICAL TRAUMA:</h6>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.1.1 Have you suffered any psychological symptoms *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :suffered_psychological_sysptoms, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :suffered_psychological_sysptoms, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'If yes what is it' %>
+            <div class="d-flex justify-content-between">
+              <% InjuriesEffect.psychological_symptoms.keys.each do |value| %>
+                <div class="form-check">
+                  <%= effect_form.radio_button :psychological_symptom, value, class: 'form-check-input' %>
+                  <%= effect_form.label value.humanize, class: 'form-check-label' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.1.2 Has it resolved now?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :psychological_symptoms_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :psychological_symptoms_resolved, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.1.3 Have you had counseling' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :had_counseling, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :had_counseling, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>6.2 ON WORK:</h6>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.2.1 Have you taken any time off work?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :taken_holidays, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :taken_holidays, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'If yes, how long? ' %>
+            <%= effect_form.number_field :total_holidays, class: 'form-control w-100', placeholder: "Number of holidays from work" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.2.2 Have you returned to work and working normally' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :returned_to_work, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :returned_to_work, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.2.3 Have you had a phased return' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :phased_return, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :phased_return, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.2.4 Any difficulty at work' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :any_difficulty_at_work, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :any_difficulty_at_work, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'Difficulties at work' %>
+            <div class="d-flex justify-content-between">
+              <%= effect_form.collection_check_boxes :difficulties_at_work, InjuriesEffect::DIFICULTIES_AT_WORK, :to_s, :to_s do |cb| %>
+                <div class="form-check">
+                  <%= cb.check_box %>
+                  <%= cb.text %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.2.5 Have you had any work adaptations to ease you index accident pain' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :any_work_adaption_for_pain, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :any_work_adaption_for_pain, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>6.3 DOMESTIC CIRCUMSTANCES AND SOCIAL HISTORY:</h6>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.3.1 Do you have difficulty with House work? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :any_difficulty_with_house_work, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :any_difficulty_with_house_work, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'Chores affected' %>
+            <div class="d-flex justify-content-between">
+              <%= effect_form.collection_check_boxes :difficulties_at_home, InjuriesEffect::DIFICULTIES_AT_HOME, :to_s, :to_s do |cb| %>
+                <div class="form-check">
+                  <%= cb.check_box %>
+                  <%= cb.text %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label 'Has the difficulty resolved' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :difficulty_resolved, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :difficulty_resolved, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'Resolved in' %>
+            <%= effect_form.date_field :difficulty_resolved_in, class: 'form-control w-100', placeholder: "Resolved in" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.3.2 Was sleep a problem *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :suffer_sleeping_problem, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :suffer_sleeping_problem, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'If yes, For how long? *' %>
+            <%= effect_form.text_field :how_long_sleeping_problem, class: 'form-control w-100', placeholder: "Sleeping problem for how long" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.3.3 What tasks or activities are you having difficulty in carrying out? *' %>
+            <%= effect_form.text_field :difficulty_in_activities, class: 'form-control w-100', placeholder: "Dificulties in activities" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.3.4 Did you need any assistance *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :need_any_assistance, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :need_any_assistance, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label 'Details of assistance' %>
+            <%= effect_form.text_field :details_of_assistance, class: 'form-control w-100', placeholder: "Assistance details" %>
+          </div>
+          <div class="form-check mt-4">
+            <h6>6.4 SPORTS AND LEISURE ACTIVITIES:</h6>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.4a Is your leisure or recreational activities limited by your symptoms? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :activies_limited_by_symptoms, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :activies_limited_by_symptoms, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= effect_form.label '6.4b If yes, which activities restricted because of the injury' %>
+            <%= effect_form.text_field :activities_restricted_by_injury, class: 'form-control w-100', placeholder: "Restricted activites" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label 'Is there any further information which should be brought to our attention?' %>
+            <%= effect_form.text_field :further_injury_details, class: 'form-control w-100', placeholder: "Any further injury details" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.4c Have you returned to your activities? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :returned_to_activities, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :returned_to_activities, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label '6.5d Is there any further information you wish to provide? *' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= effect_form.radio_button :wish_to_provide_futher_info, true, checked: true, class: 'form-check-input' %>
+                <%= effect_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= effect_form.radio_button :wish_to_provide_futher_info, false, class: 'form-check-input' %>
+                <%= effect_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= effect_form.label 'Comments' %>
+            <%= effect_form.text_field :injury_comments, class: 'form-control w-100', placeholder: "Provide comments" %>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>7. CLINICAL EXAMNATION</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <h5>To be filled by the doctor, kindly go to the next page</h5>
+        </div>
+        <%= f.fields_for :clinical_examination_attributes do |examination_form| %>
+          <div class="form-check mt-4">
+            <h6>7.1 FIXED STATEMENT*</h6>
+            <h6>The claimant examination was carried out with his express consent</h6>
+          </div>
+          <div class="form-check mt-4">
+            <h6>7.2  NECK EXAMNATION*</h6>
+            <%= examination_form.label 'Spasm' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_spasm, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_spasm, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Deformities' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_deformities, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_deformities, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Scars' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_scars, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_scars, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Crepitus' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_crepitus, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_crepitus, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Reflexes' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_reflexes, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_reflexes, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Sensations' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_sensations, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :neck_sensations, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>7.3  BACK EXAMINATION*</h6>
+            <%= examination_form.label 'Spasm' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_spasm, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_spasm, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Deformities' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_deformities, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_deformities, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Scars' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_scars, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_scars, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Crepitus' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_crepitus, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_crepitus, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Reflexes' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_reflexes, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_reflexes, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+            <%= examination_form.label 'Sensations' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= examination_form.radio_button :back_sensations, true, checked: true, class: 'form-check-input' %>
+                <%= examination_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= examination_form.radio_button :back_sensations, false, class: 'form-check-input' %>
+                <%= examination_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
+        <h2>9. OPINION AND PROGNOSIS</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <h5>To be filled by the doctor, kindly go to the next page</h5>
+        </div>
+        <%= f.fields_for :opinion_attributes do |opinion_form| %>
+          <div class="form-check mt-4">
+            <h6>9.1 DIAGNOSIS AND CAUSATION*</h6>
+            <%= opinion_form.text_field :diagnosis_and_causation, class: 'form-control w-100', placeholder: "Kindly fill in your injured parts" %>
+          </div>
+          <div class="form-check mt-4">
+            <%= opinion_form.label '9.2  IS THERE MEDICAL PROBLEMS OR COMPLICATIONS IN THE FUTURE AS A DIRECT CONSEQUENCE OF THE INJURIES SUSTAINED?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :complications_in_future, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :complications_in_future, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= opinion_form.label '9.3  IS THERE ANY ACCIDENTS SINCE INDEX ACCIDENT AFFECTING SYMPTOMS?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :accident_since_index_accident, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :accident_since_index_accident, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <%= opinion_form.label '9.4  IS THERE AN IMPACT OF PREVIOUS MEDICAL HISTORY?*' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :impact_of_previous_medical_history, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :impact_of_previous_medical_history, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>9.5  REASONABLENESS</h6>
+            <h6>INCONVINIENCE</h6>
+            <%= opinion_form.label 'Is the inconviniences suffered as described by the claimant reasonable?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :suffered_inconviniences, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :suffered_inconviniences, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>WORK</h6>
+            <%= opinion_form.label 'Is the effect of the injuries on the claimants work reasonable?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>TREATMENT</h6>
+            <%= opinion_form.label 'Is the treatment received for the severity of the injuries sustained reasonable?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :severity_of_injuries, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :severity_of_injuries, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>9.6  PROSPECTS IN THE OPEN LABOUR MARKET</h6>
+            <%= opinion_form.label 'On the balance of probabilities, do you think the chances of the claimant obtaining employment in the open job market' %><br/>
+            <%= opinion_form.label 'should have been a disadvantage as a direct consequence of physical injuries sustained in the incident?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :consequences_of_physical_injuries, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :consequences_of_physical_injuries, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>9.7  LIFE EXPECTANCY / EFFECT ON FUTURE LIFE</h6>
+            <%= opinion_form.label 'Would the claimant life expectancy be affected as a result of the index accident?' %>
+            <div class="d-flex justify-content-between w-50">
+              <div class="form-check">
+                <%= opinion_form.radio_button :claimant_life_expentancy, true, checked: true, class: 'form-check-input' %>
+                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+              </div>
+              <div class="form-check">
+                <%= opinion_form.radio_button :claimant_life_expentancy, false, class: 'form-check-input' %>
+                <%= opinion_form.label 'No', class: 'form-check-label' %>
+              </div>
+            </div>
           </div>
         <% end %>
         <br/>

@@ -8,7 +8,7 @@ class CreateMedicalHistories < ActiveRecord::Migration[7.0]
       t.string :what_increases_pain
       t.string :had_injection_for_pain
       t.string :has_operation_for_pain
-      t.string :previous_mdeical_condition
+      t.string :previous_medical_condition
       t.boolean :body_pain_before_accident
       t.string :history_additional_details
       t.boolean :past_similar_road_accident
@@ -16,7 +16,7 @@ class CreateMedicalHistories < ActiveRecord::Migration[7.0]
       t.string :body_parts_pain_before_this_accident
       t.boolean :similar_injuries_since_index_accident
       t.string :which_painkiller_is_comsuming_before_accident
-      t.boolean :accident_flared_up_previous_mdeical_condition
+      t.boolean :accident_flared_up_previous_medical_condition
       t.references :patient, null: false, foreign_key: true
 
       t.timestamps

@@ -28,6 +28,7 @@ class CreateTreatments < ActiveRecord::Migration[7.0]
       t.boolean :mode_of_transport_to_ae
       t.string :treatment_additional_details_expert_use
       t.string :treatment_additional_details_expert_view
+      t.string :gp_arrangements, array: true, default: []
       t.references :patient, null: false, foreign_key: true
 
       t.timestamps
