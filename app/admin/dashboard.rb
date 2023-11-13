@@ -5,8 +5,8 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
-        span I18n.t("active_admin.dashboard_welcome.welcome")
-        small I18n.t("active_admin.dashboard_welcome.call_to_action")
+        span "Welcome to Medico Legal Report"
+        # small I18n.t("active_admin.dashboard_welcome.call_to_action")
       end
     end
 
@@ -30,4 +30,15 @@ ActiveAdmin.register_page "Dashboard" do
     #   end
     # end
   end # content
+end
+
+# Hide the AdminUser resource from the menu
+# ActiveAdmin.register AdminUser do
+#   menu false
+# end
+
+# Register the Patient resource with the menu options you desire
+ActiveAdmin.register Patient do
+  menu priority: 2 # Adjust the priority as needed
+  # ... (other configurations for Patient resource)
 end

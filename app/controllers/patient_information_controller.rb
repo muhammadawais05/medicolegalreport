@@ -1,6 +1,22 @@
 class PatientInformationController < ApplicationController
   before_action :find_patient
 
+  def show
+    if @patient.present?
+      @injury = @patient.injury
+      @opinion = @patient.opinion
+      @accident = @patient.accident
+      @treatment = @patient.treatment
+      @appointment = @patient.appointment
+      @medical_history = @patient.medical_history
+      @injuries_effect = @patient.injuries_effect
+      @clinical_examination = @patient.clinical_examination
+    else
+      flash[:alert] = 'No patient found.'
+      redirect_to admin_patients_path
+    end
+  end
+
   def edit
     @patient_id = @patient.id if @patient
   end
@@ -22,6 +38,22 @@ class PatientInformationController < ApplicationController
     else
       flash[:alert] = 'Unable to edit the patient.'
       redirect_to edit_patient_information_path(params[:id])
+    end
+  end
+
+  def generate_pdf
+    @content = params[:html_content]
+
+    respond_to do |format|
+      format.pdf do
+        pdf_data = render_to_string(
+          layout: 'export_report_pdf',
+          pdf: 'patient_information',
+          locals: { content: @content },
+          template: 'patient_information/generate_pdf',
+        )
+        send_data(pdf_data, filename: 'patient_information.pdf', disposition: 'attachment')
+      end
     end
   end
 
