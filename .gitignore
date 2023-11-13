@@ -34,7 +34,7 @@
 /config/application.yml
 /config/database.yml
 
-/config/credentials/*
+# /config/credentials/*
 
 /config/credentials/production.key
 
