@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: postgres
-  username: postgres
-  password: 1234
+  database: medicolegalreport_production
+  username: <%= Rails.application.credentials.pg_username %>
+  password: <%= Rails.application.credentials.pg_password %>
