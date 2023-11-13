@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: medicolegalreport_production
-  username: medicolegalreport
-  password: <%= ENV["MEDICOLEGALREPORT_DATABASE_PASSWORD"] %>
+  database: postgres
+  username: postgres
+  password: 1234
