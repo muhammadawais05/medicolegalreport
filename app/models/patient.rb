@@ -16,4 +16,8 @@ class Patient < ApplicationRecord
   validates_presence_of :email, :first_name, :sur_name
 
   enum form_status: { pending: 0, sent: 1, filled: 2}
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["admin_user_id", "city", "created_at", "dob", "email", "first_name", "form_link", "form_status", "id", "loss_of_taste_or_smell", "ocuupation", "persistant_pain_in_chest", "phone_number", "postal_code", "shortness_of_breath", "state", "suffering_cough", "suffering_fever", "sur_name", "travelled_abroad_during_2022", "updated_at"]
+  end
 end
