@@ -1,6 +1,6 @@
 ActiveAdmin.register Patient do
   Formtastic::FormBuilder.perform_browser_validations = true
-  before_action :get_admin_users
+  # before_action :get_admin_users
 
   permit_params :email, :first_name, :sur_name, :phone_number
 
@@ -11,6 +11,12 @@ ActiveAdmin.register Patient do
     column :sur_name
     column :form_status
     actions
+    actions defaults: false do |patient|
+      # Only show the details button when form_status is "filled"
+      if patient.form_status == 'filled'
+        link_to 'Report', patient_information_path(patient), class: 'member_link'
+      end
+    end
   end
 
   filter :first_name
@@ -40,13 +46,16 @@ ActiveAdmin.register Patient do
     end
 
     private
+    def scoped_collection
+      super.where(admin_user_id: current_admin_user.id)
+    end
 
     def create_params
       params.require(:patient).permit(:email, :first_name, :sur_name, :phone_number)
     end
 
-    def get_admin_users
-      @admin_users = AdminUser.all
-    end
+    # def get_admin_users
+    #   @admin_users = AdminUser.all
+    # end
   end
 end

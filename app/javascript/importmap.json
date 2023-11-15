@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "controllers/download_pdf": "@controllers/download_pdf.js"
+  }
+}

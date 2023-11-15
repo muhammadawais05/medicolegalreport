@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "admin/dashboard#index"
-  resources :patient_information, only: %i[edit update]
+  resources :patient_information, only: %i[edit update show]
+  post 'patient_information/generate_pdf', to: 'patient_information#generate_pdf', as: 'generate_pdf'
 end
