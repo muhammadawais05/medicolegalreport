@@ -7,9 +7,9 @@ class CreateClinicalExaminations < ActiveRecord::Migration[7.0]
       t.boolean :neck_reflexes
       t.boolean :neck_sensations
       t.boolean :neck_deformities
+      t.boolean :back_slr
       t.boolean :back_spasm
       t.boolean :back_scars
-      t.boolean :back_crepitus
       t.boolean :back_reflexes
       t.boolean :back_sensations
       t.boolean :back_deformities

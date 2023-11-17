@@ -16,7 +16,7 @@
           </div>
         </div>
         <br/>
-        <trix-editor input="injury-editor" class="trix-content" style="margin-left: 5%; margin-right: 5%;">
+        <trix-editor input="injury-editor" class="trix-content" style="margin-left: 5%; margin-right: 5%; width: 90%;">
           <div><%= image_tag "medico logo.jpeg", width: '150', height: '150' %></div>
           <div>
             <h1 style="text-color: blue;">RISK ANALYSIS FORM & MEDICO-LEGAL QUESTIONNAIRE</h1>
@@ -82,6 +82,487 @@
             <p>2.1.15 The <%= @accident.accident_scene_attendees.humanize %> attended the scene of the accident.</p>
             <p>2.1.16 The claimant could <%= @accident.able_to_exit_your_vehicle_unaided ? '' : 'not' %> get out of the car after the index accident.</p>
             <p>2.1.17 The claimant was <%= @accident.state_after_accident.humanize %> as a result of the index accident.</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">3. INJURIES SUSTAINED</h1>
+            <h2 style="text-transform: capitalize; font-weight: bold;">3.1 INJURIES ADVISED BY THE CLAIMANT</h2>
+          </div>
+          <div>
+            <p>3.1.1 <%= @injury.injury_one_name %> started in <%= @injury.injury_one_started_in %>. <%= @injury.injury_one_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <p>3.1.2 <%= @injury.injury_two_name %> started in <%= @injury.injury_two_started_in %>. <%= @injury.injury_two_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <p>3.1.3 <%= @injury.injury_three_name %> started in <%= @injury.injury_three_started_in %>. <%= @injury.injury_three_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <p>3.1.4 <%= @injury.injury_four_name %> started in <%= @injury.injury_four_started_in %>. <%= @injury.injury_four_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <p>3.1.5 <%= @injury.injury_five_name %> started in <%= @injury.injury_five_started_in %>. <%= @injury.injury_five_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <p>3.1.6 <%= @injury.injury_six_name %> started in <%= @injury.injury_six_started_in %>. <%= @injury.injury_six_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">4. TREATMENT DETAILS</h1>
+            <h2 style="text-transform: capitalize; font-weight: bold;">4.1 AE/Hospital treatment</h2>
+          </div>
+          <div>
+            <% if @treatment.went_to_ae %>
+              <p>4.1.1  The Claimant attended the AE at <%= @treatment.hospital_name %> after the index accident</p>
+            <% else %>
+              <p>4.1.1 The claimant did not attended the AE after the index accident.</p>
+            <% end%>
+            <% if @treatment.ae_test.present? %>
+              <p>4.1.2 The Claimant <%= @treatment.ae_test.humanize %> in the AE.</p>
+            <% else %>
+              <p>4.1.2 The claimant did not have Xray/MRI/CT Scan/ECG in the AE.</p>
+            <% end%>
+            <p>4.1.3 The claimant was <%= @treatment.admitted_to_hospital ? "" : " not" %>admitted to the hospital.</p>
+            <% if @treatment.admitted_to_hospital %>
+              <p>4.1.4 The claimant was kept in the hospital for <%= @treatment.admitted_days %> days.</p>
+            <% else %>
+              <p>4.1.4 The claimant was not kept in the hospital.</p>
+            <% end%>
+            <p>4.1.5 The claimant <%= @treatment.need_any_operation ? "needed" : "did not need" %> an operation as reported.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">4.2 GP treatment</h2>
+          </div>
+          <div>
+            <% if @treatment.gp_visit_after_accident %>
+              <p>4.2.1 The claimant attended the GP after the index accident.</p>
+            <% else %>
+              <p>4.2.1 The claimant did not attend the GP after the index accident. <%=  @treatment.no_gp_visit_reason %></p>
+            <% end%>
+            <p>4.2.2 The claimant's first visit to the GP was on <%=  @treatment.first_visit_after_accident.strftime("%d-%m-%y") %>.</p>
+            <p>4.2.3 The claimant attended the GP <%=  @treatment.further_visits_count %> times after the index accident.</p>
+            <% if @treatment.gp_arrangements.present? %>
+              <p>4.2.4 The claimant attended the <%= @treatment.gp_arrangements %> after the index accident. As reported, <%=  @treatment.treatment_additional_details_expert_view %>.</p>
+            <% else %>
+              <p>4.2.4 The claimant did not attend the 'X-RAY/MRI Scan/CT Scan/Hospital referral/Physiotherapy' after the index accident.</p>
+            <% end%>
+            <p>4.2.5 The claimant attended the <%=  @treatment.exercise.humanize %> after the index accident.</p>
+            <p>4.2.6 The claimant attended <%=  @treatment.total_sessions %> sessions.</p>
+            <p>4.2.7 The claimant physiotherapy is <%=  @treatment.treatment_completed ? "completed" : "not completed" %>.</p>
+            <p>4.2.8 The claimant <%=  @treatment.utilizing_painkiller ? "took" :  "do not take" %> painkillers after the index accident.</p>
+            <p>4.2.9 The claimant is <%=  @treatment.utilizing_painkiller ? "taking" :  "not taking" %> painkillers after the index accident suffering.</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">5. PAST MEDICAL HISTORY</h1>
+            <h2 style="text-transform: capitalize; font-weight: bold;">5.1</h2>
+          </div>
+          <div>
+            <p>5.1.1 The claimant <%=  @medical_history.past_similar_road_accident ? "suffered" :  "did not suffer" %>  from an RTA before the index accident.</p>
+            <p>5.1.2 The claimant <%=  @medical_history.past_similar_road_accident ? "claimed" :  "did not claim" %> an accident in the past.</p>
+            <p>5.1.3 The claimant <%=  @medical_history.claim_the_injuries ? "suffered" :  "did not suffer" %> from another accident since the index accident.</p>
+            <p>5.1.4 The accident has <%=  @medical_history.accident_flared_up_previous_medical_condition ? "caused" :  "not caused" %> a flare-up of  a previous medical condition.</p>
+            <% if @medical_history.body_pain_before_accident %>
+              <p>5.1.5 The claimant suffered from <%= @medical_history.body_parts_pain_before_this_accident %> pain before the index accident.</p>
+            <% else %>
+              <p>5.1.5 The claimant has not suffered from pain in any of the body parts injured during this accident before the index accident.</p>
+            <% end %>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">6. EFFECTS OF INJURIES ON WORK AND LIFESTYLE:</h1>
+            <h2 style="text-transform: capitalize; font-weight: bold;">6.1 PSYCHOLOGICAL INJURY</h2>
+          </div>
+          <div>
+            <% if @injuries_effect.psychological_symptoms.present? %>
+              <p>6.1.1 The claimant suffered from <%=  @injuries_effect.psychological_symptoms.humanize %> due to the index accident.</p>
+            <% else %>
+              <p>6.1.1 The claimant did not suffer from psychological symptoms due to the index accident.</p>
+            <% end %>
+            <p>6.1.2 The psychological symptoms have <%= @injuries_effect.psychological_symptoms_resolved ? "" : "not" %> resolved.</p>
+            <% if @injuries_effect.had_counseling %>
+              <p>6.1.3 The claimant had counselling for psychological symptoms of <%= @medical_history.psychological_symptoms.humanize %></p>
+            <% else %>
+              <p>6.1.3 The claimant has not had counselling for psychological symptoms.</p>
+            <% end %>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">6.2 DOMESTIC CIRCUMSTANCES</h2>
+          </div>
+          <div>
+            <% if @injuries_effect.taken_holidays %>
+              <p>6.2.1 The claimant has taken time off work due to the index accident. The claimant has taken <%=  @injuries_effect.total_holidays %> off work.</p>
+            <% else %>
+              <p>6.2.1 The claimant has not  taken time off work due to the index accident.</p>
+            <% end %>
+            <p>6.2.2 The claimant is <%= @injuries_effect.returned_to_work ? "" : "not" %> back at work.</p>
+            <p>6.2.3 The claimant has <%= @injuries_effect.any_work_adaption_for_pain ? "" : "not" %> work adaptations to ease pain due to the index accident.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">6.3 RECREATIONAL ACTIVITIES</h2>
+          </div>
+          <div>
+            <% if @injuries_effect.any_difficulty_with_house_work %>
+              <p>6.3.1 The claimant reported issues with domestic chores like <%=  @injuries_effect.difficulties_at_home %>.</p>
+            <% else %>
+              <p>6.3.1 The claimant did not report any issues with domestic chores as a result of the index accident.</p>
+            <% end %>
+            <% if @injuries_effect.difficulty_resolved %>
+              <p>6.3.2 The claimant's issues have been resolved, in <%=  @injuries_effect.difficulty_resolved_in %>.</p>
+            <% else %>
+              <p>6.3.2 The claimant's issues have not resolved.</p>
+            <% end %>
+            <% if @injuries_effect.suffer_sleeping_problem %>
+              <p>6.3.3 The claimant reported sleeping difficulties after the index accident for <%=  @injuries_effect.how_long_sleeping_problem %>.</p>
+            <% else %>
+              <p>6.3.3 The claimant did not report sleeping difficulties after the index accident.</p>
+            <% end %>
+            <% if @injuries_effect.activities_limited_by_symptoms %>
+              <p>6.3.4 The claimant reported that the leisure activities like <%=  @injuries_effect.activities_restricted_by_injury %> are affected as a result of the index accident.</p>
+            <% else %>
+              <p>6.3.4 The claimant said that no leisure activities have been affected as a result of the index accident.</p>
+            <% end %>
+            <p>6.2.3 The claimant has <%= @injuries_effect.returned_to_activities ? "" : "not" %>  returned to leisure activities.</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">7. CLINICAL EXAMINATION</h1>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">7.1</h2>
+            <P>7.1.1 The claimant examination was carried out with his express consent.</P>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">7.2 NECK EXAMINATION</h2>
+          </div>
+          <p>7.2.1 SPASM: On examination of his neck, <%= @clinical_examination&.neck_spasm ? "" : "no" %> muscle spasm was seen.</p>
+          <p>7.2.2 DEFORMITIES: <%= @clinical_examination&.neck_deformities ? "Yes" : "No" %>, Cervical lordosis was well reduced.</p>
+          <p>7.2.3 SCARS: <%= @clinical_examination&.neck_scars ? "Yes" : "No" %>,  scars or swellings were noted on the neck.</p>
+          <p>7.2.4 CREPITUS: <%= @clinical_examination&.neck_crepitus ? "Yes" : "No" %>, neck crepitus detected.</p>
+          <p>7.2.5 REFLEXES: There was <%= @clinical_examination&.neck_reflexes ? "" : "no" %> neurological deficit noted in the upper limbs.</p>
+          <p>7.2.5 SENSATIONS: There was <%= @clinical_examination&.neck_sensations ? "" : "no" %> sensory deficit noted.</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">7.3 BACK EXAMINATION</h2>
+          </div>
+          <p>7.2.1 SPASM: On examination of his back, <%= @clinical_examination&.back_spasm ? "" : "no" %> muscle spasm was seen.</p>
+          <p>7.2.2 DEFORMITIES: <%= @clinical_examination&.back_deformities ? "Yes" : "No" %>, Cervical lordosis was well reduced.</p>
+          <p>7.2.3 SCARS: <%= @clinical_examination&.back_scars ? "Yes" : "No" %>,  scars or swellings were noted on the back.</p>
+          <p>7.2.4 SLR: <%= @clinical_examination&.back_slr ? "Yes" : "No" %>, SLR crepitus detected.</p>
+          <p>7.2.5 REFLEXES: There was <%= @clinical_examination&.back_reflexes ? "" : "no" %> neurological deficit noted in the upper limbs.</p>
+          <p>7.2.5 SENSATIONS: There was <%= @clinical_examination&.back_sensations ? "" : "no" %> sensory deficit noted.</p>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">8. MEDICAL RECORDS REVIEW			</h1>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">8.1  PROVIDED</h2>
+            <p>8.1.1 Provided with the medical records?</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">8.2	RELEVANT PRE-INDEX ACCIDENT G. PRACTITIONER’S RECORDS</h2>
+          </div>
+          <p>8.2.1</p>
+          <p>8.2.2</p>
+          <p>8.2.3</p>
+          <p>8.2.4</p>
+          <p>8.2.5</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">8.3 POST INDEX GP RECORD</h2>
+          </div>
+          <p>8.3.1</p>
+          <p>8.3.2</p>
+          <p>8.3.3</p>
+          <p>8.3.4</p>
+          <p>8.3.5</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">8.4 PRE ACCIDENT HOSPITAL RECORDS</h2>
+          </div>
+          <p>8.4.1</p>
+          <p>8.4.2</p>
+          <p>8.4.3</p>
+          <p>8.4.4</p>
+          <p>8.4.5</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">8.5 POST ACCIDENT HOSPITAL RECORDS</h2>
+          </div>
+          <p>8.5.1</p>
+          <p>8.5.2</p>
+          <p>8.5.3</p>
+          <p>8.5.4</p>
+          <p>8.5.5</p>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">9. OPINION AND PROGNOSIS</h1>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.1 DIAGNOSIS AND CAUSATION</h2>
+          </div>
+          <p>9.1.1 <%= @opinion&.diagnosis_and_causation %></p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.2 MEDICAL PROBLEMS OR COMPLICATIONS IN THE FUTURE AS A DIRECT CONSEQUENCE OF THE INJURIES SUSTAINED</h2>
+          </div>
+          <p>9.2.1 The claimant has suffered from pain in the future and will <% @opinion.complications_in_future ? "" : "not" %> have repercussions on his post-index accident pain due to his prior sufferings.</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.3 ACCIDENTS SINCE INDEX ACCIDENT AFFECTING SYMPTOMS</h2>
+          </div>
+          <% if @opinion.accident_since_index_accident %>
+            <p>9.3.1 He has a fresh injury which could affect his current symptoms.</p>
+          <% else %>
+            <p>9.3.1 He did not have a fresh, injury since the index accident.</p>
+          <% end %>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.4 IMPACT OF PREVIOUS MEDICAL HISTORY</h2>
+          </div>
+          <% if @opinion.impact_of_previous_medical_history %>
+            <p>9.4.1 The previous history does impact  current symptoms by means of exacerbated symptoms.</p>
+          <% else %>
+            <p>9.4.1 The previous history does not e impact the ongoing sufferings.</p>
+          <% end %>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.5  REASONABLENESS</h2>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.5.1 Inconviniences</h2>
+            <p>The inconveniences suffered as described by the claimant are <% @opinion.suffered_inconviniences ? "" : "not" %> reasonable.</p>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.5.2 Work</h2>
+            <p>The effect of the injuries on the claimant’s  work is <% @opinion.effect_of_injurt_on_claimants_work_reasonable ? "" : "not" %> reasonable.</p>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.5.3 Treatment</h2>
+            <p>In my opinion, the treatment received for the severity of the injuries sustained is <% @opinion.severity_of_injuries ? "" : "not" %> reasonable.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.6 PROSPECTS IN THE OPEN LABOR MARKET</h2>
+            <p>In my opinion and on the balance of probabilities the chances of the claimant obtaining employment in the open job market</p>
+            <p>should <% @opinion.consequences_of_physical_injuries ? "" : "not" %> have been disadvantaged as a direct consequence of physical injuries sustained in an index accident.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">9.7  LIFE EXPECTANCY/EFFECT ON FUTURE LIFE</h2>
+            <p>The claimant's life expectancy will <% @opinion.claimant_life_expentancy ? "" : "not" %> be affected as a direct result of the index accident.</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">10. SUMMARY OF THE CASE AND CONCLUSIONS</h1>
+          </div>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.1 OPINION</h2>
+          </div>
+          <p>10.1.1 Respected<% @patient.first_name.humanize %>&nbsp;<%= @patient.sur_name.humanize %>  was involved in MECHANISM OF ACCIDENT and is claimant physical injuries as a result.</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.2 DIRECT CAUSATION</h2>
+          </div>
+          <div>
+            <p>10.2.1 On the balance of probabilities and in my opinion the claimant's pain body part <% @injury.injury_one_name %>  is reasonably</p>
+            <p>attributable to the index accident and should make a reasonable recovery in   months from the date of the index accident.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.3  EXACERBATION</h2>
+          </div>
+          <div>
+            <p>10.3.1 On the balance of probabilities and in my opinion the index accident has exacerbated the claimant's pre-existing pain in</p>
+            <p>the body part by approximately <% @patient.first_name.humanize %>months from the date of the index accident.</p>
+          </div>
+          <div>
+            <p>10.3.2 On the balance of probabilities and in my opinion the claimant was and wound have suffered with related pain even if</p>
+            <p>the index accident would not have occurred.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.4 INVESTIGATIONS RECOMMENDED</h2>
+          </div>
+          <div>
+            <p>10.4.1 I will recommend Xray/ MRI of the for medicolegal reasons.</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.5 RECORDS REQUESTED</h2>
+          </div>
+          <div>
+            <p>10.5.1 I would request GP records, Physiotherapy records, and Hospital records, which will help me to provide a detailed prognosis.
+            </p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">10.6 LONG TERM DISABILITY</h2>
+          </div>
+          <div>
+            <p>10.6.1 "There is no evidence to suggest that the claimant will suffer any long-term disability as a result of these injuries or</p>
+            <p>might require any major medical or surgical treatment in the future."</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">11. EXPERT´S DECLARATION</h1>
+          </div>
+          <div>
+            <p>1. I understand my overriding duty is to the Court, both in preparing reports and giving oral evidence.  I have complied with </p>
+            <p>and will continue to comply with that duty.</p>
+          </div>
+          <div>
+            <p>2. I am aware of the requirements of Part 35 and Practice Direction 35, the protocol for instructing experts to give evidence</p>
+            <p>in civil claims and the practice direction on pre-action conduct. </p>
+          </div>
+          <div>
+            <p>3. I have set out in my report what I understand from those instructing me to be the questions in respect of which my opinion</p>
+            <p>as an expert is required.</p>
+          </div>
+          <div>
+            <p>4. I have done my best, in preparing this report, to be accurate and complete.  I have mentioned all matters that I regard as </p>
+            <p>relevant to the opinions I have expressed.  All of the matters on which I have expressed an opinion lie within my field of expertise.</p>
+          </div>
+          <div>
+            <p>5. I have drawn attention to all matters, of which I am aware, that might adversely affect my opinion.</p>
+          </div>
+          <div>
+            <p>6. Wherever I have no personal knowledge, I have indicated the source of factual information.</p>
+          </div>
+          <div>
+            <p>7. I have not included or excluded anything that has been suggested to me by anyone, including those instructing me, without forming</p>
+            <p>my own independent view of the matter.</p>
+          </div>
+          <div>
+            <p>8. I will notify those instructing me if, for any reason, I subsequently consider that the report requires any correction or</p>
+            <p>qualification.</p>
+          </div>
+          <div>
+            <p>9. I understand that this report will be the evidence that I will give under oath, subject to any correction or qualification I may </p>
+            <p>make before swearing to its veracity and I may be cross-examined on my report by a cross-examiner assisted by an expert.</p>
+          </div>
+          <div>
+            <p>10. I have not entered into any agreement where the amount of payment of my fee is in any way dependent on the outcome of the case.</p>
+          </div>
+          <div>
+            <p style="text-transform: capitalize; font-weight: bold;">Statement of truth:</p>
+            <p>“I confirm that I have made clear which facts and matters referred to in this report are within my own knowledge and which are</p>
+            <p>not. Those that are within my own knowledge I confirm to be true. The opinions I have expressed represent my true and</p>
+            <p>complete professional opinions on the matters to which they refer. I understand that proceedings for contempt of court may</p>
+            <p>be brought against anyone who makes or causes to be made, a false statement in a document verified by a statement of truth</p>
+            <p>without an honest belief in its truth."</p>
+          </div>
+          <br/>
+          <div>
+            <p>Date: <%= Date.today.strftime("%d-%m-%Y") %></p>
+          </div>
+          <div>
+            <p>Name of Doctor: Mr. Kirti Moholkar</p>
+          </div>
+          <div>
+            <p>Signature: </p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">12. APPENDIX- CURRICULUM VITAE</h1>
+          </div>
+          <div>
+            <p>NAME: Mr. Kirti Moholka</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">CURRENT APPOINTMENTS:</h2>
+            <p>• Consultant Orthopaedic Surgeon</p>
+            <p>• Royal Orthopaedic Hospital NHS Trust,</p>
+            <p>• Birmingham, B31 2AP</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">PRIVATE PRACTICE HOSPITALS:</h2>
+            <p>1)	Droitwich Spa Hospital, Droitwich</p>
+            <p>2)	Birmingham Nuffield Hospital, Edgbaston</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">QUALIFICATIONS:</h2>
+            <p>• MBBS; FRCSI; FRCSI (Tr & Ortho); MCh</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">PREVIOUS APPOINTMENTS:</h2>
+            <p>• Specialist Registrar (Orthopaedics), The Royal Orthopaedic Hospital, Birmingham, B31 2AP</p>
+            <p>• Specialist Registrar (Orthopaedics), North Manchester General Hospital, Manchester</p>
+            <p></p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">PROFESSIONAL AFFILIATIONS:</h2>
+            <p>• British Orthopaedic Association (BOA)</p>
+            <p>• British Medical Association (BMA)</p>
+            <p>• British Association for Surgery of the knee (BASK)</p>
+            <p>• British Shoulder and Elbow Association (BESS)</p>
+            <p>• Member of the Faculty of Sports and Exercise Medicine (RCSI)</p>
+          </div>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">INTERESTS:</h2>
+            <p>• Orthopaedics Arthritis</p>
+            <p>• Road Traffic Accidents</p>
+            <p>• Joint Replacements</p>
+            <p>  • Shoulders</p>
+            <p>  • knees</p>
+          </div>
+          <br/>
+          <div>
+            <h1 style="text-color: blue;">13 REFERENCES</h1>
+          </div>
+          <div>
+            <p>1. Aker P D, Gross A R., Goldsmith C H, Peloso P. Conservative management of mechanical neck pain: systematic overview</p>
+            <p>and meta-analysis.  Br Med J 1996; 313: 1291-6 </p>
+          </div>
+          <div>
+            <p>2. Barnsley L, Lord S, Bogduk N Clinical Review – Whiplash Injury.  Pain; 1994; 58: 238-307 </p>
+          </div>
+          <div>
+            <p>3. Borchgrevink G E, Kaasa A, McDonash D, Stiles T C, Haraldseth O, Lereim I.  Acute treatment of whiplash neck strain</p>
+            <p>injuries.  A randomized trial of treatment during the first 14 days after a car accident.  Spine 1998; 23; 25-31
+            </p>
+          </div>
+          <div>
+            <p>4. Cassidy J D, Carroll L J, Cote P, Lemstra M, Berglund A, Nygren A.  Effect of eliminating compensation for pain and</p>
+            <p>suffering on the outcome of insurance claims for whiplash injury.  N Engl J Med 2000; 342: 1179-86
+            </p>
+          </div>
+          <div>
+            <p>5. Croft A C.  The Whiplash Phenomenon.  Spine Research Institute, San Diego, USA.</p>
+            <p></p>
+          </div>
+          <div>
+            <p>6. Ferrari R, Russell AS.  Epidemiology of whiplash: an international dilemma.  Ann Rheum Dis 1999; 58:1-5</p>
+            <p></p>
+          </div>
+          <div>
+            <p>7. Foy M, Fagg P, Medicolegal Reporting in Orthopaedic Trauma 2002. Ch 18 The Cervical Spine Ch 19 The Thoracic</p>
+            <p>and Lumbar Spine.</p>
+          </div>
+          <div>
+            <p>8. Gargan M, Bannister G. Main C, Hollis S.  The behavioral response to whiplash injury.  J Bone Joint Surg Br 1997; 523-6</p>
+            <p></p>
+          </div>
+          <div>
+            <p>9. Harder S, Veilleux M, Suissa S.  The effect of socio-demographic and crash-related factors on the prognosis of whiplash.</p>
+            <p>  J Clin Epidemiol 1998; 51: 377-84.</p>
+          </div>
+          <div>
+            <p>10. Mayou R, Bruant B.  Psychiatry of whiplash neck injury.  Brit J Psychiatry 2002; 180; 441-48</p>
+            <p></p>
+          </div>
+          <div>
+            <p>11. Richter M, Otte D, Pohlemann T, Krettek C, Blauth M.  Whiplash-type neck distortion in restrained car drivers: frequency,</p>
+            <p>causes, and long-term results.  Eur Spine J 2000; 9: 109-17.</p>
+          </div>
+          <div>
+            <p>12. Spitzer W O, Skovron M L, Salmi L R, Cassisy J D, Duranceau J, Suissa S, Zeiss E.  Scientific Monograph of the Quebec </p>
+            <p>Task Force on Whiplash-Associated Disorders: Redefining “Whiplash” and Its Management.  Spine 1995; 20(supp8S): 1-73S.</p>
+          </div>
+          <div>
+            <p>13. Van Tulder M W, Koes B W, Bouter L M.  Conservative treatment of acute and chronic nonspecific low back pain.</p>
+            <p>  A systematic review of randomized controlled trials of the most common interventions.  Spine 1997; 18: 2128-56</p>
           </div>
         </trix-editor>
         <br/>
