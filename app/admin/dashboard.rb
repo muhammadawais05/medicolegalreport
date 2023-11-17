@@ -33,9 +33,9 @@ ActiveAdmin.register_page "Dashboard" do
 end
 
 # Hide the AdminUser resource from the menu
-# ActiveAdmin.register AdminUser do
-#   menu false
-# end
+ActiveAdmin.register AdminUser do
+  menu false
+end
 
 # Register the Patient resource with the menu options you desire
 ActiveAdmin.register Patient do
