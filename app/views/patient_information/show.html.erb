@@ -66,22 +66,22 @@
             <h2 style="text-transform: capitalize; font-weight: bold;">2.1 INJURIES SUSTAINED AS ADVISED BY THE CLAIMANT</h2>
           </div>
           <div>
-            <p>2.1.1 <%= @patient.first_name.humanize %> was the <%= @accident.accident_victim %> of the vehicle which was involved in the Road Traffic Accident.</p>
+            <p>2.1.1 <%= @patient.first_name&.humanize %> was the <%= @accident.accident_victim %> of the vehicle which was involved in the Road Traffic Accident.</p>
             <p>2.1.2 The vehicle involved in the accident was a <%= @accident.vehicle %>.</p>
-            <p>2.1.3 The third-party vehicle involved in the accident was a  <%= @accident.third_party_vehicle.humanize %></p>
+            <p>2.1.3 The third-party vehicle involved in the accident was a  <%= @accident.third_party_vehicle&.humanize %></p>
             <p>2.1.4 The claimant was <%= @accident.seat_belted ? '' : 'not' %> seatbelted at the time of the impact.</p>
             <p>2.1.5 The claimant was <%= @accident.jolted_fwd_or_bwd ? '' : 'not' %> jolted forward and backwards when the accident happened.</p>
-            <p>2.1.6 The accident happened at a <%= @accident.site_of_accident.humanize %>.</p>
+            <p>2.1.6 The accident happened at a <%= @accident.site_of_accident&.humanize %>.</p>
             <p>2.1.7 The vehicle in which the claimant was travelling was <%= @accident.vehicle_fitted_with_head_restraint ? '' : 'not' %> fitted with a head restraint.</p>
             <p>2.1.8 The vehicle in which the claimant was travelling was <%= @accident.travelling_speed %> at the time of the accident.</p>
             <p>2.1.9 The third-party vehicle was moving at <%= @accident.third_party_vehicle_speed %>.</p>
-            <p>2.1.10 The vehicle in which the claimant was travelling in was <%= @accident.vehicle_category.humanize %>.</p>
-            <p>2.1.11 The claimant was looking  <%= @accident.where_were_you_looking_at.humanize %> at the time of impact.</p>
+            <p>2.1.10 The vehicle in which the claimant was travelling in was <%= @accident.vehicle_category&.humanize %>.</p>
+            <p>2.1.11 The claimant was looking  <%= @accident.where_were_you_looking_at&.humanize %> at the time of impact.</p>
             <p>2.1.13 The claimant <%= @accident.hit_the_car_interior ? '' : 'did not' %> hit the inside of the vehicle in which he was travelling.</p>
             <p>2.1.14 The airbag was <%= @accident.air_bag_deployed ? '' : 'not' %> deployed at the point of the impact.</p>
-            <p>2.1.15 The <%= @accident.accident_scene_attendees.humanize %> attended the scene of the accident.</p>
+            <p>2.1.15 The <%= @accident.accident_scene_attendees&.humanize %> attended the scene of the accident.</p>
             <p>2.1.16 The claimant could <%= @accident.able_to_exit_your_vehicle_unaided ? '' : 'not' %> get out of the car after the index accident.</p>
-            <p>2.1.17 The claimant was <%= @accident.state_after_accident.humanize %> as a result of the index accident.</p>
+            <p>2.1.17 The claimant was <%= @accident.state_after_accident&.humanize %> as a result of the index accident.</p>
           </div>
           <br/>
           <div>
@@ -108,7 +108,7 @@
               <p>4.1.1 The claimant did not attended the AE after the index accident.</p>
             <% end%>
             <% if @treatment.ae_test.present? %>
-              <p>4.1.2 The Claimant <%= @treatment.ae_test.humanize %> in the AE.</p>
+              <p>4.1.2 The Claimant <%= @treatment.ae_test&.humanize %> in the AE.</p>
             <% else %>
               <p>4.1.2 The claimant did not have Xray/MRI/CT Scan/ECG in the AE.</p>
             <% end%>
@@ -137,7 +137,7 @@
             <% else %>
               <p>4.2.4 The claimant did not attend the 'X-RAY/MRI Scan/CT Scan/Hospital referral/Physiotherapy' after the index accident.</p>
             <% end%>
-            <p>4.2.5 The claimant attended the <%=  @treatment.exercise.humanize %> after the index accident.</p>
+            <p>4.2.5 The claimant attended the <%=  @treatment.exercise&.humanize %> after the index accident.</p>
             <p>4.2.6 The claimant attended <%=  @treatment.total_sessions %> sessions.</p>
             <p>4.2.7 The claimant physiotherapy is <%=  @treatment.treatment_completed ? "completed" : "not completed" %>.</p>
             <p>4.2.8 The claimant <%=  @treatment.utilizing_painkiller ? "took" :  "do not take" %> painkillers after the index accident.</p>
@@ -166,13 +166,13 @@
           </div>
           <div>
             <% if @injuries_effect.psychological_symptoms.present? %>
-              <p>6.1.1 The claimant suffered from <%=  @injuries_effect.psychological_symptoms.humanize %> due to the index accident.</p>
+              <p>6.1.1 The claimant suffered from <%=  @injuries_effect.psychological_symptoms&.humanize %> due to the index accident.</p>
             <% else %>
               <p>6.1.1 The claimant did not suffer from psychological symptoms due to the index accident.</p>
             <% end %>
             <p>6.1.2 The psychological symptoms have <%= @injuries_effect.psychological_symptoms_resolved ? "" : "not" %> resolved.</p>
             <% if @injuries_effect.had_counseling.present? %>
-              <p>6.1.3 The claimant had counselling for psychological symptoms of <%= @injuries_effect.had_counseling.humanize %></p>
+              <p>6.1.3 The claimant had counselling for psychological symptoms of <%= @injuries_effect.had_counseling&.humanize %></p>
             <% else %>
               <p>6.1.3 The claimant has not had counselling for psychological symptoms.</p>
             <% end %>
@@ -354,7 +354,7 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">10.1 OPINION</h2>
           </div>
-          <p>10.1.1 Respected<% @patient.first_name.humanize %>&nbsp;<%= @patient.sur_name.humanize %>  was involved in MECHANISM OF ACCIDENT and is claimant physical injuries as a result.</p>
+          <p>10.1.1 Respected<% @patient.first_name&.humanize %>&nbsp;<%= @patient.sur_name&.humanize %>  was involved in MECHANISM OF ACCIDENT and is claimant physical injuries as a result.</p>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">10.2 DIRECT CAUSATION</h2>
@@ -369,7 +369,7 @@
           </div>
           <div>
             <p>10.3.1 On the balance of probabilities and in my opinion the index accident has exacerbated the claimant's pre-existing pain in</p>
-            <p>the body part by approximately <% @patient.first_name.humanize %>months from the date of the index accident.</p>
+            <p>the body part by approximately <% @patient.first_name&.humanize %>months from the date of the index accident.</p>
           </div>
           <div>
             <p>10.3.2 On the balance of probabilities and in my opinion the claimant was and wound have suffered with related pain even if</p>
