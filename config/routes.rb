@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "admin/dashboard#index"
+  get 'homes/index'
+  root "homes#index"
   resources :patient_information, only: %i[edit update show]
   post 'patient_information/generate_pdf', to: 'patient_information#generate_pdf', as: 'generate_pdf'
 end
