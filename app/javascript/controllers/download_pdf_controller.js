@@ -7,16 +7,16 @@ export default class extends Controller {
 
   async downloadPdf() {
     console.log("Button Clicked!");
-    const editorContent = $(".trix-content").html();
 
-    console.log("editorContent", editorContent);
+    const editorContent = document.querySelector(".trix-content").html;
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
     try {
       const response = await fetch("/patient_information/generate_pdf.pdf", {
         method: "POST",
         headers: {
+          "X-CSRF-Token": csrfToken,
           "Content-Type": "application/json",
-          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content"),
         },
         body: JSON.stringify({ html_content: editorContent }),
       });
