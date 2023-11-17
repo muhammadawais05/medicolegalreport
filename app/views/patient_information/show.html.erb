@@ -172,7 +172,7 @@
             <% end %>
             <p>6.1.2 The psychological symptoms have <%= @injuries_effect.psychological_symptoms_resolved ? "" : "not" %> resolved.</p>
             <% if @injuries_effect.had_counseling %>
-              <p>6.1.3 The claimant had counselling for psychological symptoms of <%= @medical_history.psychological_symptoms.humanize %></p>
+              <p>6.1.3 The claimant had counselling for psychological symptoms of <%= @injuries_effect.psychological_symptoms.humanize %></p>
             <% else %>
               <p>6.1.3 The claimant has not had counselling for psychological symptoms.</p>
             <% end %>
