@@ -1334,6 +1334,67 @@
         <br/>
         <br/>
         <hr/>
+        <h2>8. MEDICAL RECORDS REVIEW</h2>
+        <hr/>
+        <div class="d-flex justify-content-center">
+          <h5>To be filled by the doctor, kindly go to the next page</h5>
+        </div>
+        <%= f.fields_for :gp_record_attributes do |record_form| %>
+          <div class="form-check mt-4">
+            <h6>8.1  PROVIDED</h6>
+            <div class="form-check">
+              <%= record_form.radio_button :gp_record_provided, true, checked: true, class: 'form-check-input' %>
+              <%= record_form.label 'Yes', class: 'form-check-label' %>
+            </div>
+            <div class="form-check">
+              <%= record_form.radio_button :gp_record_provided, false, class: 'form-check-input' %>
+              <%= record_form.label 'No', class: 'form-check-label' %>
+            </div>
+          </div>
+          <div class="form-check mt-4">
+            <h6>8.2 PRE INDEX GP RECORD</h6>
+            <%= record_form.text_field :pre_index_gp_record_one, class: 'form-control w-100', placeholder: "8.2.1" %><br/>
+            <%= record_form.text_field :pre_index_gp_record_two, class: 'form-control w-100', placeholder: "8.2.2" %><br/>
+            <%= record_form.text_field :pre_index_gp_record_three, class: 'form-control w-100', placeholder: "8.2.3" %><br/>
+            <%= record_form.text_field :pre_index_gp_record_four, class: 'form-control w-100', placeholder: "8.2.4" %><br/>
+            <%= record_form.text_field :pre_index_gp_record_five, class: 'form-control w-100', placeholder: "8.2.5" %><br/>
+          </div>
+          <div class="form-check mt-4">
+            <h6>8.3 POST INDEX GP RECORD</h6>
+            <%= record_form.text_field :post_index_gp_record_one, class: 'form-control w-100', placeholder: "8.3.1" %><br/>
+            <%= record_form.text_field :post_index_gp_record_two, class: 'form-control w-100', placeholder: "8.3.2" %><br/>
+            <%= record_form.text_field :post_index_gp_record_three, class: 'form-control w-100', placeholder: "8.3.3" %><br/>
+            <%= record_form.text_field :post_index_gp_record_four, class: 'form-control w-100', placeholder: "8.3.4" %><br/>
+            <%= record_form.text_field :post_index_gp_record_five, class: 'form-control w-100', placeholder: "8.3.5" %><br/>
+          </div>
+          <div class="form-check mt-4">
+            <h6>8.4 PRE ACCIDENT HOSPITAL RECORD</h6>
+            <%= record_form.text_field :pre_accident_hospital_record_one, class: 'form-control w-100', placeholder: "8.4.1" %><br/>
+            <%= record_form.text_field :pre_accident_hospital_record_two, class: 'form-control w-100', placeholder: "8.4.2" %><br/>
+            <%= record_form.text_field :pre_accident_hospital_record_three, class: 'form-control w-100', placeholder: "8.4.3" %><br/>
+            <%= record_form.text_field :pre_accident_hospital_record_four, class: 'form-control w-100', placeholder: "8.4.4" %><br/>
+            <%= record_form.text_field :pre_accident_hospital_record_five, class: 'form-control w-100', placeholder: "8.4.5" %><br/>
+          </div>
+          <div class="form-check mt-4">
+            <h6>8.5 POST ACCIDENT HOSPITAL RECORD</h6>
+            <%= record_form.text_field :post_accident_hospital_record_one, class: 'form-control w-100', placeholder: "8.5.1" %><br/>
+            <%= record_form.text_field :post_accident_hospital_record_two, class: 'form-control w-100', placeholder: "8.5.2" %><br/>
+            <%= record_form.text_field :post_accident_hospital_record_three, class: 'form-control w-100', placeholder: "8.5.3" %><br/>
+            <%= record_form.text_field :post_accident_hospital_record_four, class: 'form-control w-100', placeholder: "8.5.4" %><br/>
+            <%= record_form.text_field :post_accident_hospital_record_five, class: 'form-control w-100', placeholder: "8.5.5" %><br/>
+          </div>
+          <div class="form-check mt-4">
+            <h6>8.6 PHYSIO RECORD</h6>
+            <%= record_form.text_field :physio_record_one, class: 'form-control w-100', placeholder: "8.6.1" %><br/>
+            <%= record_form.text_field :physio_record_two, class: 'form-control w-100', placeholder: "8.6.2" %><br/>
+            <%= record_form.text_field :physio_record_three, class: 'form-control w-100', placeholder: "8.6.3" %><br/>
+            <%= record_form.text_field :physio_record_four, class: 'form-control w-100', placeholder: "8.6.4" %><br/>
+            <%= record_form.text_field :physio_record_five, class: 'form-control w-100', placeholder: "8.6.5" %><br/>
+          </div>
+        <% end %>
+        <br/>
+        <br/>
+        <hr/>
         <h2>9. OPINION AND PROGNOSIS</h2>
         <hr/>
         <div class="d-flex justify-content-center">
