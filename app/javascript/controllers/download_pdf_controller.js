@@ -8,7 +8,7 @@ export default class extends Controller {
   async downloadPdf() {
     console.log("Button Clicked!");
 
-    const editorContent = document.querySelector(".trix-content").html;
+    const editorContent = document.querySelector(".trix-content").innerHTML;
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
     try {
