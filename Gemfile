@@ -49,8 +49,8 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem 'wkhtmltopdf-binary', '~> 0.12.6.6'
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", '>= 1.2'
