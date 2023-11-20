@@ -8,8 +8,9 @@ class Patient < ApplicationRecord
   has_one :injuries_effect, dependent: :destroy, inverse_of: :patient
   has_one :opinion, dependent: :destroy, inverse_of: :patient
   has_one :clinical_examination, dependent: :destroy, inverse_of: :patient
+  has_one :gp_record, dependent: :destroy, inverse_of: :patient
 
-  [:accident, :appointment, :injury, :treatment, :medical_history, :injuries_effect, :opinion, :clinical_examination].each do |model|
+  [:accident, :appointment, :injury, :treatment, :medical_history, :injuries_effect, :opinion, :clinical_examination, :gp_record].each do |model|
     accepts_nested_attributes_for model, reject_if: :all_blank
   end
 

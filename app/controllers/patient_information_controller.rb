@@ -11,6 +11,7 @@ class PatientInformationController < ApplicationController
       @medical_history = @patient.medical_history
       @injuries_effect = @patient.injuries_effect
       @clinical_examination = @patient.clinical_examination
+      @gp_record = @patient.gp_record
     else
       flash[:alert] = 'No patient found.'
       redirect_to admin_patients_path
@@ -31,6 +32,9 @@ class PatientInformationController < ApplicationController
     @patient.build_medical_history unless @patient.medical_history.present?
     @patient.build_opinion unless @patient.opinion.present?
     @patient.build_clinical_examination unless @patient.clinical_examination.present?
+    @patient.build_gp_record unless @patient.gp_record.present?
+
+    debugger
 
     if @patient.update(permitted_params)
       @patient.update(form_status: 2)
@@ -99,6 +103,14 @@ class PatientInformationController < ApplicationController
                   complications_in_future suffered_inconviniences claimant_life_expentancy accident_since_index_accident
                   consequences_of_physical_injuries impact_of_previous_medical_history effect_of_injurt_on_claimants_work_reasonable],
                   clinical_examination_attributes: %i[patient_id neck_spasm neck_scars neck_crepitus neck_reflexes neck_sensations
-                  neck_deformities back_spasm back_scars back_crepitus back_reflexes back_sensations back_deformities])
+                  neck_deformities back_spasm back_scars back_crepitus back_reflexes back_sensations back_deformities],
+                  gp_record_attributes: %i[gp_record_provided pre_index_gp_record_one pre_index_gp_record_two
+                  pre_index_gp_record_three pre_index_gp_record_four pre_index_gp_record_five post_index_gp_record_one
+                  post_index_gp_record_two post_index_gp_record_three post_index_gp_record_four post_index_gp_record_five
+                  pre_accident_hospital_record_one pre_accident_hospital_record_two pre_accident_hospital_record_three
+                  pre_accident_hospital_record_four pre_accident_hospital_record_five post_accident_hospital_record_one
+                  post_accident_hospital_record_two post_accident_hospital_record_three post_accident_hospital_record_four
+                  post_accident_hospital_record_five physio_record_one physio_record_two physio_record_three physio_record_four
+                  physio_record_five])
   end
 end
