@@ -1,4 +1,4 @@
-server '34.239.142.37', user: 'deployer', roles: %w[app web db]
+server '54.242.152.189', user: 'deployer', roles: %w[app web db]
 
 set :branch, 'main'
 
