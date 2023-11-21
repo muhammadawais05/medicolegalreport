@@ -111,6 +111,7 @@ class PatientInformationController < ApplicationController
                   pre_accident_hospital_record_four pre_accident_hospital_record_five post_accident_hospital_record_one
                   post_accident_hospital_record_two post_accident_hospital_record_three post_accident_hospital_record_four
                   post_accident_hospital_record_five physio_record_one physio_record_two physio_record_three physio_record_four
-                  physio_record_five])
+                  physio_record_five], gp_record_attributes: [pre_index_gp_record_images: [], post_index_gp_record_images:[],
+                  pre_accident_hospital_record_images: [], post_accident_hospital_images: []])
   end
 end

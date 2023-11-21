@@ -257,6 +257,11 @@
           <p>8.2.3 <%= @gp_record.pre_index_gp_record_three %></p>
           <p>8.2.4 <%= @gp_record.pre_index_gp_record_four %></p>
           <p>8.2.5 <%= @gp_record.pre_index_gp_record_five %></p>
+          <% if @gp_record.pre_index_gp_record_images.attached? %>
+            <% @gp_record.pre_index_gp_record_images.each do |pre_index_gp_record_image| %>
+              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+            <% end %>
+          <% end %>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.3 POST INDEX GP RECORD</h2>
@@ -266,6 +271,11 @@
           <p>8.3.3 <%= @gp_record.post_index_gp_record_three %></p>
           <p>8.3.4 <%= @gp_record.post_index_gp_record_four %></p>
           <p>8.3.5 <%= @gp_record.post_index_gp_record_five %></p>
+          <% if @gp_record.post_index_gp_record_images.attached? %>
+            <% @gp_record.post_index_gp_record_images.each do |post_index_gp_record_image| %>
+              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+            <% end %>
+          <% end %>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.4 PRE ACCIDENT HOSPITAL RECORDS</h2>
@@ -275,6 +285,11 @@
           <p>8.4.3 <%= @gp_record.pre_accident_hospital_record_three %></p>
           <p>8.4.4 <%= @gp_record.pre_accident_hospital_record_four %></p>
           <p>8.4.5 <%= @gp_record.pre_accident_hospital_record_five %></p>
+          <% if @gp_record.pre_accident_hospital_record_images.attached? %>
+            <% @gp_record.pre_accident_hospital_record_images.each do |pre_accident_hospital_record_image| %>
+              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+            <% end %>
+          <% end %>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.5 POST ACCIDENT HOSPITAL RECORDS</h2>
@@ -284,6 +299,11 @@
           <p>8.5.3 <%= @gp_record.post_accident_hospital_record_three %></p>
           <p>8.5.4 <%= @gp_record.post_accident_hospital_record_four %></p>
           <p>8.5.5 <%= @gp_record.post_accident_hospital_record_five %></p>
+          <% if @gp_record.post_accident_hospital_images.attached? %>
+            <% @gp_record.post_accident_hospital_images.each do |post_accident_hospital_image| %>
+              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+            <% end %>
+          <% end %>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.6 PHYSIO RECORDS</h2>
