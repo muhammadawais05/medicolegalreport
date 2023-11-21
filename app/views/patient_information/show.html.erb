@@ -17,13 +17,14 @@
         </div>
         <br/>
         <trix-editor input="injury-editor" class="trix-content" style="margin-left: 5%; margin-right: 5%; width: 90%;">
-          <div><%= image_tag "medico logo.jpeg", width: '150', height: '150' %></div>
+          <div><%= image_tag "https://medicolegalreport-bucket.s3.amazonaws.com/medico+logo.jpeg", width: '150', height: '150' %></div>
           <div>
             <h1 style="text-color: blue;">RISK ANALYSIS FORM & MEDICO-LEGAL QUESTIONNAIRE</h1>
           </div>
           <h2  style="text-transform: capitalize; font-weight: bold;">THIS REPORT IS ADDRESSED TO THE COURT</h2>
           <h2  style="text-transform: capitalize; font-weight: bold;">MEDICAL REPORT GENERATED: <%= Date.today.strftime("%d-%m-%Y") %></h2>
           <hr/>
+          <br/>
           <div>
             <h2 >NAME: <%= @patient.first_name %>&nbsp;<%= @patient.sur_name %></h2>
           </div>
