@@ -34,8 +34,6 @@ class PatientInformationController < ApplicationController
     @patient.build_clinical_examination unless @patient.clinical_examination.present?
     @patient.build_gp_record unless @patient.gp_record.present?
 
-    debugger
-
     if @patient.update(permitted_params)
       @patient.update(form_status: 2)
       redirect_to admin_patients_path

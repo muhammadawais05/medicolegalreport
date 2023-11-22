@@ -1376,6 +1376,7 @@
             <%= record_form.text_field :pre_accident_hospital_record_three, class: 'form-control w-100', placeholder: "8.4.3" %><br/>
             <%= record_form.text_field :pre_accident_hospital_record_four, class: 'form-control w-100', placeholder: "8.4.4" %><br/>
             <%= record_form.text_field :pre_accident_hospital_record_images, class: 'form-control w-100', placeholder: "8.4.5" %><br/>
+            <%= record_form.file_field :pre_accident_hospital_record_images, multiple: true, class: 'form-control w-100', placeholder: "8.2.5" %><br/>
           </div>
           <div class="form-check mt-4">
             <h6>8.5 POST ACCIDENT HOSPITAL RECORD</h6>
@@ -1384,149 +1385,149 @@
             <%= record_form.text_field :post_accident_hospital_record_three, class: 'form-control w-100', placeholder: "8.5.3" %><br/>
             <%= record_form.text_field :post_accident_hospital_record_four, class: 'form-control w-100', placeholder: "8.5.4" %><br/>
             <%= record_form.text_field :post_accident_hospital_images, class: 'form-control w-100', placeholder: "8.5.5" %><br/>
+            <%= record_form.file_field :post_accident_hospital_images, multiple: true, class: 'form-control w-100', placeholder: "8.2.5" %><br/>
+            <div class="form-check mt-4">
+              <h6>8.6 PHYSIO RECORD</h6>
+              <%= record_form.text_field :physio_record_one, class: 'form-control w-100', placeholder: "8.6.1" %><br/>
+              <%= record_form.text_field :physio_record_two, class: 'form-control w-100', placeholder: "8.6.2" %><br/>
+              <%= record_form.text_field :physio_record_three, class: 'form-control w-100', placeholder: "8.6.3" %><br/>
+              <%= record_form.text_field :physio_record_four, class: 'form-control w-100', placeholder: "8.6.4" %><br/>
+              <%= record_form.text_field :physio_record_five, class: 'form-control w-100', placeholder: "8.6.5" %><br/>
+            </div>
+          <% end %>
+          <br/>
+          <br/>
+          <hr/>
+          <h2>9. OPINION AND PROGNOSIS</h2>
+          <hr/>
+          <div class="d-flex justify-content-center">
+            <h5>To be filled by the doctor, kindly go to the next page</h5>
           </div>
-          <div class="form-check mt-4">
-            <h6>8.6 PHYSIO RECORD</h6>
-            <%= record_form.text_field :physio_record_one, class: 'form-control w-100', placeholder: "8.6.1" %><br/>
-            <%= record_form.text_field :physio_record_two, class: 'form-control w-100', placeholder: "8.6.2" %><br/>
-            <%= record_form.text_field :physio_record_three, class: 'form-control w-100', placeholder: "8.6.3" %><br/>
-            <%= record_form.text_field :physio_record_four, class: 'form-control w-100', placeholder: "8.6.4" %><br/>
-            <%= record_form.text_field :physio_record_five, class: 'form-control w-100', placeholder: "8.6.5" %><br/>
-          </div>
+          <%= f.fields_for :opinion_attributes do |opinion_form| %>
+            <div class="form-check mt-4">
+              <h6>9.1 DIAGNOSIS AND CAUSATION*</h6>
+              <%= opinion_form.text_field :diagnosis_and_causation, class: 'form-control w-100', placeholder: "Kindly fill in your injured parts" %>
+            </div>
+            <div class="form-check mt-4">
+              <%= opinion_form.label '9.2  IS THERE MEDICAL PROBLEMS OR COMPLICATIONS IN THE FUTURE AS A DIRECT CONSEQUENCE OF THE INJURIES SUSTAINED?*' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :complications_in_future, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :complications_in_future, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <%= opinion_form.label '9.3  IS THERE ANY ACCIDENTS SINCE INDEX ACCIDENT AFFECTING SYMPTOMS?*' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :accident_since_index_accident, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :accident_since_index_accident, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <%= opinion_form.label '9.4  IS THERE AN IMPACT OF PREVIOUS MEDICAL HISTORY?*' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :impact_of_previous_medical_history, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :impact_of_previous_medical_history, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <h6>9.5  REASONABLENESS</h6>
+              <h6>INCONVINIENCE</h6>
+              <%= opinion_form.label 'Is the inconviniences suffered as described by the claimant reasonable?' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :suffered_inconviniences, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :suffered_inconviniences, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <h6>WORK</h6>
+              <%= opinion_form.label 'Is the effect of the injuries on the claimants work reasonable?' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <h6>TREATMENT</h6>
+              <%= opinion_form.label 'Is the treatment received for the severity of the injuries sustained reasonable?' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :severity_of_injuries, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :severity_of_injuries, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <h6>9.6  PROSPECTS IN THE OPEN LABOUR MARKET</h6>
+              <%= opinion_form.label 'On the balance of probabilities, do you think the chances of the claimant obtaining employment in the open job market' %><br/>
+              <%= opinion_form.label 'should have been a disadvantage as a direct consequence of physical injuries sustained in the incident?' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :consequences_of_physical_injuries, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :consequences_of_physical_injuries, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <h6>9.7  LIFE EXPECTANCY / EFFECT ON FUTURE LIFE</h6>
+              <%= opinion_form.label 'Would the claimant life expectancy be affected as a result of the index accident?' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= opinion_form.radio_button :claimant_life_expentancy, true, checked: true, class: 'form-check-input' %>
+                  <%= opinion_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= opinion_form.radio_button :claimant_life_expentancy, false, class: 'form-check-input' %>
+                  <%= opinion_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <br/>
+          <br/>
+          <%= f.submit 'Submit', class: 'btn btn-primary' %>
+          <br/>
+          <br/>
         <% end %>
-        <br/>
-        <br/>
-        <hr/>
-        <h2>9. OPINION AND PROGNOSIS</h2>
-        <hr/>
-        <div class="d-flex justify-content-center">
-          <h5>To be filled by the doctor, kindly go to the next page</h5>
-        </div>
-        <%= f.fields_for :opinion_attributes do |opinion_form| %>
-          <div class="form-check mt-4">
-            <h6>9.1 DIAGNOSIS AND CAUSATION*</h6>
-            <%= opinion_form.text_field :diagnosis_and_causation, class: 'form-control w-100', placeholder: "Kindly fill in your injured parts" %>
-          </div>
-          <div class="form-check mt-4">
-            <%= opinion_form.label '9.2  IS THERE MEDICAL PROBLEMS OR COMPLICATIONS IN THE FUTURE AS A DIRECT CONSEQUENCE OF THE INJURIES SUSTAINED?*' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :complications_in_future, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :complications_in_future, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <%= opinion_form.label '9.3  IS THERE ANY ACCIDENTS SINCE INDEX ACCIDENT AFFECTING SYMPTOMS?*' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :accident_since_index_accident, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :accident_since_index_accident, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <%= opinion_form.label '9.4  IS THERE AN IMPACT OF PREVIOUS MEDICAL HISTORY?*' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :impact_of_previous_medical_history, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :impact_of_previous_medical_history, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <h6>9.5  REASONABLENESS</h6>
-            <h6>INCONVINIENCE</h6>
-            <%= opinion_form.label 'Is the inconviniences suffered as described by the claimant reasonable?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :suffered_inconviniences, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :suffered_inconviniences, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <h6>WORK</h6>
-            <%= opinion_form.label 'Is the effect of the injuries on the claimants work reasonable?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :effect_of_injurt_on_claimants_work_reasonable, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <h6>TREATMENT</h6>
-            <%= opinion_form.label 'Is the treatment received for the severity of the injuries sustained reasonable?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :severity_of_injuries, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :severity_of_injuries, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <h6>9.6  PROSPECTS IN THE OPEN LABOUR MARKET</h6>
-            <%= opinion_form.label 'On the balance of probabilities, do you think the chances of the claimant obtaining employment in the open job market' %><br/>
-            <%= opinion_form.label 'should have been a disadvantage as a direct consequence of physical injuries sustained in the incident?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :consequences_of_physical_injuries, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :consequences_of_physical_injuries, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            <h6>9.7  LIFE EXPECTANCY / EFFECT ON FUTURE LIFE</h6>
-            <%= opinion_form.label 'Would the claimant life expectancy be affected as a result of the index accident?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= opinion_form.radio_button :claimant_life_expentancy, true, checked: true, class: 'form-check-input' %>
-                <%= opinion_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= opinion_form.radio_button :claimant_life_expentancy, false, class: 'form-check-input' %>
-                <%= opinion_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <br/>
-        <br/>
-        <%= f.submit 'Submit', class: 'btn btn-primary' %>
-        <br/>
-        <br/>
-      <% end %>
+      </div>
     </div>
-  </div>
-<% else %>
-  <h1>Patient do not exist.</h1>
-<% end %>
+  <% else %>
+    <h1>Patient do not exist.</h1>
+  <% end %>
