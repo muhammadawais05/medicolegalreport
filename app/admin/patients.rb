@@ -37,7 +37,7 @@ ActiveAdmin.register Patient do
     def create
       @patient = current_admin_user.patients.new(create_params)
       if @patient.save
-        PatientMailer.with(patient: @patient).send_patient_form.deliver_now
+        # PatientMailer.with(patient: @patient).send_patient_form.deliver_now
         @patient.update(form_status: 1)
         redirect_to admin_patients_path
       else
