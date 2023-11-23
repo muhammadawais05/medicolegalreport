@@ -238,7 +238,7 @@
           <p>7.2.1 SPASM: On examination of his back, <%= @clinical_examination&.back_spasm ? "" : "no" %> muscle spasm was seen.</p>
           <p>7.2.2 DEFORMITIES: <%= @clinical_examination&.back_deformities ? "Yes" : "No" %>, Cervical lordosis was well reduced.</p>
           <p>7.2.3 SCARS: <%= @clinical_examination&.back_scars ? "Yes" : "No" %>,  scars or swellings were noted on the back.</p>
-          <p>7.2.4 SLR: <%#= @clinical_examination&.back_slr ? "Yes" : "No" %>, SLR crepitus detected.</p>
+          <p>7.2.4 SLR: <%= @clinical_examination&.back_slr ? "Yes" : "No" %>, SLR crepitus detected.</p>
           <p>7.2.5 REFLEXES: There was <%= @clinical_examination&.back_reflexes ? "" : "no" %> neurological deficit noted in the upper limbs.</p>
           <p>7.2.5 SENSATIONS: There was <%= @clinical_examination&.back_sensations ? "" : "no" %> sensory deficit noted.</p>
           <br/>
@@ -260,7 +260,7 @@
           <p>8.2.5 <%= @gp_record&.pre_index_gp_record_five %></p>
           <% if @gp_record.present? && @gp_record.pre_index_gp_record_images.attached? %>
             <% @gp_record.pre_index_gp_record_images.each do |pre_index_gp_record_image| %>
-              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
@@ -274,7 +274,7 @@
           <p>8.3.5 <%= @gp_record&.post_index_gp_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.post_index_gp_record_images.attached? %>
             <% @gp_record.post_index_gp_record_images.each do |post_index_gp_record_image| %>
-              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
@@ -288,7 +288,7 @@
           <p>8.4.5 <%= @gp_record&.pre_accident_hospital_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.pre_accident_hospital_record_images.attached? %>
             <% @gp_record.pre_accident_hospital_record_images.each do |pre_accident_hospital_record_image| %>
-              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
@@ -302,7 +302,7 @@
           <p>8.5.5 <%= @gp_record&.post_accident_hospital_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.post_accident_hospital_images.attached? %>
             <% @gp_record.post_accident_hospital_images.each do |post_accident_hospital_image| %>
-              <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
