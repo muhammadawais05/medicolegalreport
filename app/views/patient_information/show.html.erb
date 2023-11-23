@@ -131,7 +131,7 @@
             <% else %>
               <p>4.2.1 The claimant did not attend the GP after the index accident. <%=  @treatment.no_gp_visit_reason %></p>
             <% end%>
-            <p>4.2.2 The claimant's first visit to the GP was on <%=  @treatment.first_visit_after_accident.strftime("%d-%m-%y") %>.</p>
+            <p>4.2.2 The claimant's first visit to the GP was on <%=  @treatment.first_visit_after_accident&.strftime("%d-%m-%y") %>.</p>
             <p>4.2.3 The claimant attended the GP <%=  @treatment.further_visits_count %> times after the index accident.</p>
             <% if @treatment.gp_arrangements.present? %>
               <p>4.2.4 The claimant attended the <%= @treatment.gp_arrangements %> after the index accident. As reported, <%=  @treatment.treatment_additional_details_expert_view %>.</p>
@@ -253,12 +253,12 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.2	RELEVANT PRE-INDEX ACCIDENT G. PRACTITIONER’S RECORDS</h2>
           </div>
-          <p>8.2.1 <%= @gp_record.pre_index_gp_record_one %></p>
-          <p>8.2.2 <%= @gp_record.pre_index_gp_record_two %></p>
-          <p>8.2.3 <%= @gp_record.pre_index_gp_record_three %></p>
-          <p>8.2.4 <%= @gp_record.pre_index_gp_record_four %></p>
-          <p>8.2.5 <%= @gp_record.pre_index_gp_record_five %></p>
-          <% if @gp_record.pre_index_gp_record_images.attached? %>
+          <p>8.2.1 <%= @gp_record&.pre_index_gp_record_one %></p>
+          <p>8.2.2 <%= @gp_record&.pre_index_gp_record_two %></p>
+          <p>8.2.3 <%= @gp_record&.pre_index_gp_record_three %></p>
+          <p>8.2.4 <%= @gp_record&.pre_index_gp_record_four %></p>
+          <p>8.2.5 <%= @gp_record&.pre_index_gp_record_five %></p>
+          <% if @gp_record.present? && @gp_record.pre_index_gp_record_images.attached? %>
             <% @gp_record.pre_index_gp_record_images.each do |pre_index_gp_record_image| %>
               <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
@@ -267,12 +267,12 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.3 POST INDEX GP RECORD</h2>
           </div>
-          <p>8.3.1 <%= @gp_record.post_index_gp_record_one %></p>
-          <p>8.3.2 <%= @gp_record.post_index_gp_record_two %></p>
-          <p>8.3.3 <%= @gp_record.post_index_gp_record_three %></p>
-          <p>8.3.4 <%= @gp_record.post_index_gp_record_four %></p>
-          <p>8.3.5 <%= @gp_record.post_index_gp_record_five %></p>
-          <% if @gp_record.post_index_gp_record_images.attached? %>
+          <p>8.3.1 <%= @gp_record&.post_index_gp_record_one %></p>
+          <p>8.3.2 <%= @gp_record&.post_index_gp_record_two %></p>
+          <p>8.3.3 <%= @gp_record&.post_index_gp_record_three %></p>
+          <p>8.3.4 <%= @gp_record&.post_index_gp_record_four %></p>
+          <p>8.3.5 <%= @gp_record&.post_index_gp_record_five %></p>
+          <% if @gp_record.present? &&  @gp_record.post_index_gp_record_images.attached? %>
             <% @gp_record.post_index_gp_record_images.each do |post_index_gp_record_image| %>
               <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
@@ -281,12 +281,12 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.4 PRE ACCIDENT HOSPITAL RECORDS</h2>
           </div>
-          <p>8.4.1 <%= @gp_record.pre_accident_hospital_record_one %></p>
-          <p>8.4.2 <%= @gp_record.pre_accident_hospital_record_two %></p>
-          <p>8.4.3 <%= @gp_record.pre_accident_hospital_record_three %></p>
-          <p>8.4.4 <%= @gp_record.pre_accident_hospital_record_four %></p>
-          <p>8.4.5 <%= @gp_record.pre_accident_hospital_record_five %></p>
-          <% if @gp_record.pre_accident_hospital_record_images.attached? %>
+          <p>8.4.1 <%= @gp_record&.pre_accident_hospital_record_one %></p>
+          <p>8.4.2 <%= @gp_record&.pre_accident_hospital_record_two %></p>
+          <p>8.4.3 <%= @gp_record&.pre_accident_hospital_record_three %></p>
+          <p>8.4.4 <%= @gp_record&.pre_accident_hospital_record_four %></p>
+          <p>8.4.5 <%= @gp_record&.pre_accident_hospital_record_five %></p>
+          <% if @gp_record.present? &&  @gp_record.pre_accident_hospital_record_images.attached? %>
             <% @gp_record.pre_accident_hospital_record_images.each do |pre_accident_hospital_record_image| %>
               <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
@@ -295,12 +295,12 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.5 POST ACCIDENT HOSPITAL RECORDS</h2>
           </div>
-          <p>8.5.1 <%= @gp_record.post_accident_hospital_record_one %></p>
-          <p>8.5.2 <%= @gp_record.post_accident_hospital_record_two %></p>
-          <p>8.5.3 <%= @gp_record.post_accident_hospital_record_three %></p>
-          <p>8.5.4 <%= @gp_record.post_accident_hospital_record_four %></p>
-          <p>8.5.5 <%= @gp_record.post_accident_hospital_record_five %></p>
-          <% if @gp_record.post_accident_hospital_images.attached? %>
+          <p>8.5.1 <%= @gp_record&.post_accident_hospital_record_one %></p>
+          <p>8.5.2 <%= @gp_record&.post_accident_hospital_record_two %></p>
+          <p>8.5.3 <%= @gp_record&.post_accident_hospital_record_three %></p>
+          <p>8.5.4 <%= @gp_record&.post_accident_hospital_record_four %></p>
+          <p>8.5.5 <%= @gp_record&.post_accident_hospital_record_five %></p>
+          <% if @gp_record.present? &&  @gp_record.post_accident_hospital_images.attached? %>
             <% @gp_record.post_accident_hospital_images.each do |post_accident_hospital_image| %>
               <%= image_tag pre_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
@@ -309,11 +309,11 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">8.6 PHYSIO RECORDS</h2>
           </div>
-          <p>8.6.1 <%= @gp_record.physio_record_one %></p>
-          <p>8.6.2 <%= @gp_record.physio_record_two %></p>
-          <p>8.6.3 <%= @gp_record.physio_record_three %></p>
-          <p>8.6.4 <%= @gp_record.physio_record_four %></p>
-          <p>8.6.5 <%= @gp_record.physio_record_five %></p>
+          <p>8.6.1 <%= @gp_record&.physio_record_one %></p>
+          <p>8.6.2 <%= @gp_record&.physio_record_two %></p>
+          <p>8.6.3 <%= @gp_record&.physio_record_three %></p>
+          <p>8.6.4 <%= @gp_record&.physio_record_four %></p>
+          <p>8.6.5 <%= @gp_record&.physio_record_five %></p>
           <br/>
           <div>
             <h1 style="text-color: blue;">9. OPINION AND PROGNOSIS</h1>

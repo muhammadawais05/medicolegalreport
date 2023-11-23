@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   get 'homes/index'
   root "homes#index"
-  resources :patient_information, only: %i[edit update show]
+  resources :patient_information, only: %i[edit create show]
   post 'patient_information/generate_pdf', to: 'patient_information#generate_pdf', as: 'generate_pdf'
 end

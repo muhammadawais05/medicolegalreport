@@ -14,7 +14,7 @@ ActiveAdmin.register Patient do
     actions defaults: false do |patient|
       # Only show the details button when form_status is "filled"
       if patient.form_status == 'filled'
-        link_to 'Report', patient_information_path(patient), class: 'member_link'
+        link_to 'Report', patient_information_path(patient.id), class: 'member_link'
       end
     end
   end

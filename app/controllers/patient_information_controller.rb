@@ -22,24 +22,25 @@ class PatientInformationController < ApplicationController
     @patient_id = @patient.id if @patient
   end
 
-  def update
-    return unless @patient.present?
+  def create
+    patient = Patient.find_by_id(params[:patient_id])
+    return unless patient.present?
 
-    @patient.build_accident unless @patient.accident.present?
-    @patient.build_appointment unless @patient.appointment.present?
-    @patient.build_injury unless @patient.injury.present?
-    @patient.build_treatment unless @patient.treatment.present?
-    @patient.build_medical_history unless @patient.medical_history.present?
-    @patient.build_opinion unless @patient.opinion.present?
-    @patient.build_clinical_examination unless @patient.clinical_examination.present?
-    @patient.build_gp_record unless @patient.gp_record.present?
+    patient.build_accident unless patient.accident.present?
+    patient.build_appointment unless patient.appointment.present?
+    patient.build_injury unless patient.injury.present?
+    patient.build_treatment unless patient.treatment.present?
+    patient.build_medical_history unless patient.medical_history.present?
+    patient.build_opinion unless patient.opinion.present?
+    patient.build_clinical_examination unless patient.clinical_examination.present?
+    patient.build_gp_record unless patient.gp_record.present?
 
-    if @patient.update(permitted_params)
-      @patient.update(form_status: 2)
+    if patient.update(permitted_params)
+      patient.update(form_status: 2)
       redirect_to admin_patients_path
     else
       flash[:alert] = 'Unable to edit the patient.'
-      redirect_to edit_patient_information_path(params[:id])
+      redirect_to edit_patient_information_path(patient.id)
     end
   end
 
