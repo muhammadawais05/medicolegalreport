@@ -274,7 +274,7 @@
           <p>8.3.5 <%= @gp_record&.post_index_gp_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.post_index_gp_record_images.attached? %>
             <% @gp_record.post_index_gp_record_images.each do |post_index_gp_record_image| %>
-              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? post_index_gp_record_image.url : post_index_gp_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
@@ -288,7 +288,7 @@
           <p>8.4.5 <%= @gp_record&.pre_accident_hospital_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.pre_accident_hospital_record_images.attached? %>
             <% @gp_record.pre_accident_hospital_record_images.each do |pre_accident_hospital_record_image| %>
-              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? pre_accident_hospital_record_image.url : pre_accident_hospital_record_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
@@ -302,7 +302,7 @@
           <p>8.5.5 <%= @gp_record&.post_accident_hospital_record_five %></p>
           <% if @gp_record.present? &&  @gp_record.post_accident_hospital_images.attached? %>
             <% @gp_record.post_accident_hospital_images.each do |post_accident_hospital_image| %>
-              <%= image_tag Rails.env != 'development' ? pre_index_gp_record_image.url : pre_index_gp_record_image, width: '350', height: '250' %>
+              <%= image_tag Rails.env != 'development' ? post_accident_hospital_image.url : post_accident_hospital_image, width: '350', height: '250' %>
             <% end %>
           <% end %>
           <br/>
