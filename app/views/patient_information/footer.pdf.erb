@@ -1,0 +1,24 @@
+<html>
+  <head>
+  </head>
+  <body onload="number_pages()">
+    (Mr. Kirti Moholka) ------------------------------------------------------------------------------------- Page <span class="page"></span> of <span class="topage"></span>
+    <script>
+      function number_pages() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = decodeURIComponent(z[1]);}
+        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+        for(var i in x) {
+          var y = document.getElementsByClassName(x[i]);
+          for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+      }
+
+      // Ensure the function is called after the document is fully loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        number_pages();
+      });
+    </script>
+  </body>
+</html>

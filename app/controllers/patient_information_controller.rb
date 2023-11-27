@@ -54,6 +54,12 @@ class PatientInformationController < ApplicationController
           pdf: 'patient_information',
           locals: { content: @content },
           template: 'patient_information/generate_pdf',
+          margin: { top: 10,
+                    bottom: 10,
+                    left: 30,
+                    right: 30 },
+          # header: { html: { template:'patient_information/header' }},
+          footer: { html: { template:'patient_information/footer' }},
         )
         send_data(pdf_data, filename: 'patient_information.pdf', disposition: 'attachment')
       end
