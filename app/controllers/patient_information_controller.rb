@@ -74,7 +74,7 @@ class PatientInformationController < ApplicationController
 
   def permitted_params
     params.permit(:travelled_abroad_during_2022, :suffering_fever, :loss_of_taste_or_smell, :suffering_cough,
-                  :shortness_of_breath, :persistant_pain_in_chest, :first_name, :sur_name, :dob, :city, :state,
+                  :shortness_of_breath, :persistant_pain_in_chest, :first_name, :sur_name, :dob, :city, :state, :holidays_from_work,
                   :postal_code, :ocuupation, accident_attributes: %i[patient_id date vehicle seat_belted accident_victim
                   travelling_speed vehicle_category approximate_speed site_of_accident air_bag_deployed jolted_fwd_or_bwd
                   third_party_vehicle hit_the_car_interior body_hit_vehicle_part state_after_accident accident_scene_attendees

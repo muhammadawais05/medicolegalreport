@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_20_013515) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_185701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -199,7 +199,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_013515) do
     t.boolean "phased_return"
     t.boolean "had_counseling"
     t.boolean "taken_holidays"
-    t.integer "total_holidays"
+    t.string "total_holidays"
     t.string "injury_comments"
     t.boolean "returned_to_work"
     t.boolean "difficulty_resolved"
@@ -288,6 +288,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_013515) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "admin_user_id"
+    t.string "holidays_from_work"
     t.index ["admin_user_id"], name: "index_patients_on_admin_user_id"
   end
 
