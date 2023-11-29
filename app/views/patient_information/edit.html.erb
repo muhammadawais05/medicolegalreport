@@ -197,209 +197,213 @@
         </div>
         <%= f.fields_for :accident_attributes do |accident_form| %>
           <div class="form-check mt-4">
-            2.1 <%= accident_form.label 'Mechanism of Injury *', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <%= accident_form.collection_check_boxes :mechanisms_of_injury, Accident::MECHANISMS_OF_INJURY, :to_s, :to_s do |cb| %>
+            <div class="m-4">
+              2.1 <%= accident_form.label 'Mechanism of Injury *', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <%= accident_form.collection_check_boxes :mechanisms_of_injury, Accident::MECHANISMS_OF_INJURY, :to_s, :to_s do |cb| %>
+                  <div class="form-check" data-controller="accident-detail">
+                    <%= cb.check_box(data: { action: "change->accident-detail#showField" }) %>
+                    <%= cb.text %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="m-4 hide-visibility" id="vehicleFields">
+            <div class="m-4">
+              <h6>2.2 IF YOU HAVE SUFFERED WITH A RTA (CAR/VAN ACCIDENT), PLEASE COMPLETE THIS SECTION.</h6>
+              <h6>IF IT IS NOT AN RTA, PLEASE SKIP THIS SECTION AND COMPLETE THE NEXT FREETEXT 2.2 SECTION BELOW</h6>
+            </div>
+            <div class="form-check mt-4">
+              1. <%= accident_form.label ' Were you the driver or passenger in the vehicle involved in the accident', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.accident_victims.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :accident_victim, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              2. <%= accident_form.label 'Was your vehicle the following?', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.vehicles.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :vehicle, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              3. <%= accident_form.label 'Was the third party vehicle the following?', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.third_party_vehicles.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :third_party_vehicle, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              4. <%= accident_form.label 'Were you seat belted?' %>
+              <div class="d-flex justify-content-between w-50">
                 <div class="form-check">
-                  <%= cb.check_box %>
-                  <%= cb.text %>
+                  <%= accident_form.radio_button :seat_belted, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="m-4">
-            <h6>2.2 IF YOU HAVE SUFFERED WITH A RTA (CAR/VAN ACCIDENT), PLEASE COMPLETE THIS SECTION.</h6>
-            <h6>IF IT IS NOT AN RTA, PLEASE SKIP THIS SECTION AND COMPLETE THE NEXT FREETEXT 2.2 SECTION BELOW</h6>
-          </div>
-          <div class="form-check mt-4">
-            1. <%= accident_form.label ' Were you the driver or passenger in the vehicle involved in the accident', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.accident_victims.keys.each do |value| %>
                 <div class="form-check">
-                  <%= accident_form.radio_button :accident_victim, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :seat_belted, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
                 </div>
-              <% end %>
+              </div>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            2. <%= accident_form.label 'Was your vehicle the following?', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.vehicles.keys.each do |value| %>
+            <div class="form-check mt-4">
+              5. <%= accident_form.label 'Were you jolted forwards and backwards with force?' %>
+              <div class="d-flex justify-content-between w-50">
                 <div class="form-check">
-                  <%= accident_form.radio_button :vehicle, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :jolted_fwd_or_bwd, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            3. <%= accident_form.label 'Was the third party vehicle the following?', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.third_party_vehicles.keys.each do |value| %>
                 <div class="form-check">
-                  <%= accident_form.radio_button :third_party_vehicle, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :jolted_fwd_or_bwd, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            4. <%= accident_form.label 'Were you seat belted?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :seat_belted, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :seat_belted, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
               </div>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            5. <%= accident_form.label 'Were you jolted forwards and backwards with force?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :jolted_fwd_or_bwd, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :jolted_fwd_or_bwd, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
+            <div class="form-check mt-4">
+              6. <%= accident_form.label 'Site of Accident:', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.site_of_accidents.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :site_of_accident, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
               </div>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            6. <%= accident_form.label 'Site of Accident:', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.site_of_accidents.keys.each do |value| %>
+            <div class="form-check mt-4">
+              7. <%= accident_form.label 'Vehicle fitted with Head restraint?' %>
+              <div class="d-flex justify-content-between w-50">
                 <div class="form-check">
-                  <%= accident_form.radio_button :site_of_accident, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            7. <%= accident_form.label 'Vehicle fitted with Head restraint?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            8. <%= accident_form.label 'What was your travelling speed?', class: 'form-label' %>
-            <div class="d-flex justify-content-between w-50">
-              <% Accident.travelling_speeds.keys.each do |value| %>
                 <div class="form-check">
-                  <%= accident_form.radio_button :travelling_speed, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :vehicle_fitted_with_head_restraint, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
                 </div>
-              <% end %>
+              </div>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            <%= accident_form.label 'Your approximate speed', class: 'form-label' %>
-            <%= accident_form.text_field :approximate_speed, class: 'form-control w-100', placeholder: "mph." %>
-          </div>
-          <div class="form-check mt-4">
-            <%= accident_form.label 'Third party vehicles speed', class: 'form-label' %>
-            <%= accident_form.text_field :third_party_vehicle_speed, class: 'form-control w-100', placeholder: "mph." %>
-          </div>
-          <div class="form-check mt-4">
-            9. <%= accident_form.label 'Was your vehicle', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.vehicle_categories.keys.each do |value| %>
+            <div class="form-check mt-4">
+              8. <%= accident_form.label 'What was your travelling speed?', class: 'form-label' %>
+              <div class="d-flex justify-content-between w-50">
+                <% Accident.travelling_speeds.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :travelling_speed, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              <%= accident_form.label 'Your approximate speed', class: 'form-label' %>
+              <%= accident_form.text_field :approximate_speed, class: 'form-control w-100', placeholder: "mph." %>
+            </div>
+            <div class="form-check mt-4">
+              <%= accident_form.label 'Third party vehicles speed', class: 'form-label' %>
+              <%= accident_form.text_field :third_party_vehicle_speed, class: 'form-control w-100', placeholder: "mph." %>
+            </div>
+            <div class="form-check mt-4">
+              9. <%= accident_form.label 'Was your vehicle', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.vehicle_categories.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :vehicle_category, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              10. <%= accident_form.label 'Where were you looking at the time of the impact?', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.where_were_you_looking_ats.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :where_were_you_looking_at, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              11. <%= accident_form.label 'Did you hit the interior of the car?' %>
+              <div class="d-flex justify-content-between w-50">
                 <div class="form-check">
-                  <%= accident_form.radio_button :vehicle_category, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :hit_the_car_interior, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            10. <%= accident_form.label 'Where were you looking at the time of the impact?', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.where_were_you_looking_ats.keys.each do |value| %>
                 <div class="form-check">
-                  <%= accident_form.radio_button :where_were_you_looking_at, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :hit_the_car_interior, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
                 </div>
-              <% end %>
+              </div>
+              <%= accident_form.text_field :body_hit_vehicle_part, class: 'form-control w-100', placeholder: "Body part" %>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            11. <%= accident_form.label 'Did you hit the interior of the car?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :hit_the_car_interior, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :hit_the_car_interior, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-            <%= accident_form.text_field :body_hit_vehicle_part, class: 'form-control w-100', placeholder: "Body part" %>
-          </div>
-          <div class="form-check mt-4">
-            12. <%= accident_form.label 'Was the airbag deployed?' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :air_bag_deployed, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :air_bag_deployed, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            13. <%= accident_form.label 'Who attended the scene of the accident', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.accident_scene_attendees.keys.each do |value| %>
+            <div class="form-check mt-4">
+              12. <%= accident_form.label 'Was the airbag deployed?' %>
+              <div class="d-flex justify-content-between w-50">
                 <div class="form-check">
-                  <%= accident_form.radio_button :accident_scene_attendees, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :air_bag_deployed, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
                 </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            14. <%= accident_form.label 'Were you able to exit your vehicle unaided' %>
-            <div class="d-flex justify-content-between w-50">
-              <div class="form-check">
-                <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, true, checked: true, class: 'form-check-input' %>
-                <%= accident_form.label 'Yes', class: 'form-check-label' %>
-              </div>
-              <div class="form-check">
-                <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, false, class: 'form-check-input' %>
-                <%= accident_form.label 'No', class: 'form-check-label' %>
-              </div>
-            </div>
-          </div>
-          <div class="form-check mt-4">
-            15. <%= accident_form.label 'Your state immediately after the accident', class: 'form-label' %>
-            <div class="d-flex justify-content-between">
-              <% Accident.state_after_accidents.keys.each do |value| %>
                 <div class="form-check">
-                  <%= accident_form.radio_button :state_after_accident, value, class: 'form-check-input' %>
-                  <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  <%= accident_form.radio_button :air_bag_deployed, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
                 </div>
-              <% end %>
+              </div>
             </div>
-          </div>
-          <div class="form-check mt-4">
-            2.2 <%= accident_form.label 'BRIEF DESCRIPTION OF NON ROAD TRAFFIC ACCIDENT (COMPLETION OF THIS SECTION IS MANDATORY): PLS WITE NA IF YOU HAVE COMPLETED PREVIOUS 2.2*', class: 'form-label' %>
-            <%= accident_form.text_area :description_of_nonroad_traffice_accident, class: 'form-control w-100', placeholder: "Brief description" %>
+            <div class="form-check mt-4">
+              13. <%= accident_form.label 'Who attended the scene of the accident', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.accident_scene_attendees.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :accident_scene_attendees, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              14. <%= accident_form.label 'Were you able to exit your vehicle unaided' %>
+              <div class="d-flex justify-content-between w-50">
+                <div class="form-check">
+                  <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, true, checked: true, class: 'form-check-input' %>
+                  <%= accident_form.label 'Yes', class: 'form-check-label' %>
+                </div>
+                <div class="form-check">
+                  <%= accident_form.radio_button :able_to_exit_your_vehicle_unaided, false, class: 'form-check-input' %>
+                  <%= accident_form.label 'No', class: 'form-check-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              15. <%= accident_form.label 'Your state immediately after the accident', class: 'form-label' %>
+              <div class="d-flex justify-content-between">
+                <% Accident.state_after_accidents.keys.each do |value| %>
+                  <div class="form-check">
+                    <%= accident_form.radio_button :state_after_accident, value, class: 'form-check-input' %>
+                    <%= accident_form.label value.humanize, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-check mt-4">
+              2.2 <%= accident_form.label 'BRIEF DESCRIPTION OF NON ROAD TRAFFIC ACCIDENT (COMPLETION OF THIS SECTION IS MANDATORY): PLS WITE NA IF YOU HAVE COMPLETED PREVIOUS 2.2*', class: 'form-label' %>
+              <%= accident_form.text_area :description_of_nonroad_traffice_accident, class: 'form-control w-100', placeholder: "Brief description" %>
+            </div>
           </div>
         <% end %>
         <br/>
