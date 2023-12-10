@@ -11,7 +11,27 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
+@import "active_admin_flat_skin";
+@import "font-awesome";
+
 // Overriding any non-variable Sass must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+// Add your custom styles here
+// Example: Change the red color in the sidebar
+// #panelBorder {
+//   background-color: rgb(229, 105, 16) !important;
+// }
+
+// Example: Change the red color in the header
+#header.header .site_title {
+  height: 72px !important;
+  // background-color: #ff5b4f !important;
+}
+
+// #header ul.tabs > li:hover > a,
+// html #header ul.tabs > li.current > a {
+//   background-color: #ff5b4f !important;
+// }
