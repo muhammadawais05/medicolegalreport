@@ -9,7 +9,7 @@
       Please fill up the following form:
     </p>
     <p>
-      <a href="https://www.google.com/">Open Form</a>
+      <%= link_to 'Open questionnaire', edit_patient_information_url(@patient.id), class: "btn btn-outline-primary" %>
     </p>
     <p>Regards,</p>
     <p>Medico Legal Report Team.</p>
