@@ -1,5 +1,5 @@
 class PatientMailer < ApplicationMailer
-  default from: 'kmoholkar@gmail.com'
+  default from: 'no-reply@medicolegalreports.org'
 
   def send_patient_form
     @patient = params[:patient]
