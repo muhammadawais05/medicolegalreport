@@ -27,3 +27,35 @@
 #header.header #tabs.header-item.tabs li a {
   line-height: 24px !important;
 }
+
+#active_admin_content {
+  a#diplay-filter {
+    // Hide button
+    visibility: hidden;
+    position: relative;
+    margin-bottom: 2em;
+
+    &::after {
+      // Custom CSS to create a new div on top
+      content: "Filters" !important;
+      visibility: visible;
+      position: absolute;
+      left: 0;
+
+      // Inherited from theme
+      background-color: $skinActiveColor;
+      padding: 7px 10px !important;
+      font-weight: normal;
+      text-shadow: none;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+        0 1px 0 0 rgba(255, 255, 255, 0.8);
+      line-height: 12px;
+      margin-right: 3px;
+      display: inline-block;
+      border: solid 1px #fb003d;
+      font-size: 1em;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+}
