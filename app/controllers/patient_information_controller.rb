@@ -7,7 +7,7 @@ class PatientInformationController < ApplicationController
       @opinion = @patient.opinion
       @accident = @patient.accident
       @treatment = @patient.treatment
-      @appointment = @patient.appointment
+      @appointment = @patient.appointments.last
       @medical_history = @patient.medical_history
       @injuries_effect = @patient.injuries_effect
       @clinical_examination = @patient.clinical_examination
@@ -27,7 +27,7 @@ class PatientInformationController < ApplicationController
     return unless patient.present?
 
     patient.build_accident unless patient.accident.present?
-    patient.build_appointment unless patient.appointment.present?
+    patient.appointments.build(admin_user_id: patient.admin_user_id) unless patient.appointments.present?
     patient.build_injury unless patient.injury.present?
     patient.build_treatment unless patient.treatment.present?
     patient.build_medical_history unless patient.medical_history.present?
@@ -35,7 +35,7 @@ class PatientInformationController < ApplicationController
     patient.build_clinical_examination unless patient.clinical_examination.present?
     patient.build_gp_record unless patient.gp_record.present?
 
-    if patient.update(permitted_params)
+    if patient.update!(permitted_params)
       patient.update(form_status: 2)
       redirect_to admin_patients_path
     else
@@ -79,7 +79,7 @@ class PatientInformationController < ApplicationController
                   travelling_speed vehicle_category approximate_speed site_of_accident air_bag_deployed jolted_fwd_or_bwd
                   third_party_vehicle hit_the_car_interior body_hit_vehicle_part state_after_accident accident_scene_attendees
                   third_party_vehicle_speed able_to_exit_your_vehicle_unaided vehicle_fitted_with_head_restraint
-                  description_of_nonroad_traffice_accident where_were_you_looking_at], appointment_attributes:
+                  description_of_nonroad_traffice_accident where_were_you_looking_at], appointments_attributes:
                   %i[patient_id date examination_venue any_time_off_work report_requested_by solicitors_ref
                   visit_after_accident other_hospital_visited_after_accident identity_proof other_identity_proof],
                   injury_attributes: %i[patient_id injury_one_name injury_one_started_in injury_one_resolved_in

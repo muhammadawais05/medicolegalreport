@@ -83,8 +83,15 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   config.action_mailer.default_url_options = { host: 'medicolegalreports.org' }
-  config.hosts << 'admin.medicolegalreports.org'
   config.action_mailer.default_options = { from: 'no-reply@medicolegalreports.org' }
+  config.action_mailer.smtp_settings = {
+    address: 'email-smtp.us-east-1.amazonaws.com',
+    port: 587,
+    user_name: Rails.application.credentials.ses[:username],
+    password: Rails.application.credentials.ses[:password],
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
