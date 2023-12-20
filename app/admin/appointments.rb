@@ -14,8 +14,8 @@ ActiveAdmin.register Appointment do
 
   form do |f|
     f.inputs do
-      f.input :patient, input_html: {required: true}
-      f.input :date, input_html: {required: true}
+      f.input :patient, as: :select, collection: Patient.all.map { |p| [p.first_name, p.id] }, input_html: {required: true}
+      f.input :date, as: :datepicker, input_html: {required: true}
       f.input :solicitors_ref, input_html: {required: true}
       f.input :examination_venue, input_html: {required: true}
       f.input :any_time_off_work, input_html: {required: true}
