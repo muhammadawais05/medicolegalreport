@@ -51,7 +51,7 @@ ActiveAdmin.register Patient do
     end
 
     def create_params
-      params.require(:patient).permit(:email, :first_name, :sur_name, :phone_number)
+      params.require(:patient).permit(:email, :first_name, :sur_name, :phone_number).merge(admin_user_id: current_admin_user.id)
     end
 
     # def get_admin_users
