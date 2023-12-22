@@ -32,16 +32,9 @@ body {
   font-size: 14px;
 }
 
-html form input[type="text"],
-html form input[type="password"],
-html form input[type="email"],
-html form input[type="number"],
-html form input[type="url"],
-html form input[type="tel"],
-html form textarea,
-html form input[type="password_confirmation"] {
+input[type="password"],
+input[type="password_confirmation"] {
   /* Add your custom styles here */
-  // width: 60%;
   margin-top: 2%;
   margin-left: 8%;
 }
