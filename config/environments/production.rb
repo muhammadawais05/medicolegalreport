@@ -82,7 +82,7 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  config.action_mailer.default_url_options = { host: 'medicolegalreports.org' }
+  config.action_mailer.default_url_options = { host: 'admin.medicolegalreports.org' }
   config.action_mailer.default_options = { from: 'no-reply@medicolegalreports.org' }
   config.action_mailer.smtp_settings = {
     address: 'email-smtp.us-east-1.amazonaws.com',
