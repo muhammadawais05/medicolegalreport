@@ -8,12 +8,22 @@ export default class extends Controller {
   }
 
   showField(event) {
-    const dateContainer = document.getElementById("vehicleFields");
+    const carAccidentContainer = document.getElementById("vehicleFields");
+    const nonRoadTrafficContainer = document.getElementById(
+      "nonRoadTrafficFields"
+    );
 
-    if (event.target.checked && event.target.value === "Car Accident") {
-      dateContainer.classList.remove("hide-visibility");
+    if (event.target.checked) {
+      if (event.target.value === "Car Accident") {
+        carAccidentContainer.classList.remove("hide-visibility");
+        // nonRoadTrafficContainer.classList.add("hide-visibility");
+      } else {
+        nonRoadTrafficContainer.classList.remove("hide-visibility");
+        // carAccidentContainer.classList.add("hide-visibility");
+      }
     } else {
-      dateContainer.classList.add("hide-visibility");
+      carAccidentContainer.classList.add("hide-visibility");
+      nonRoadTrafficContainer.classList.add("hide-visibility");
     }
   }
 }
