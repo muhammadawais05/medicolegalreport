@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_20_014452) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_07_141925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_014452) do
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "other_joint_examination"
     t.index ["patient_id"], name: "index_clinical_examinations_on_patient_id"
   end
 
@@ -194,6 +195,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_014452) do
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pain_before_accident_one", default: 0
+    t.integer "pain_after_accident_one", default: 0
+    t.integer "accident_one_pain_now", default: 0
+    t.integer "pain_before_accident_two", default: 0
+    t.integer "pain_after_accident_two", default: 0
+    t.integer "accident_two_pain_now", default: 0
+    t.integer "pain_before_accident_three", default: 0
+    t.integer "pain_after_accident_three", default: 0
+    t.integer "accident_three_pain_now", default: 0
+    t.integer "pain_before_accident_four", default: 0
+    t.integer "pain_after_accident_four", default: 0
+    t.integer "accident_four_pain_now", default: 0
+    t.integer "pain_before_accident_five", default: 0
+    t.integer "pain_after_accident_five", default: 0
+    t.integer "accident_five_pain_now", default: 0
+    t.integer "pain_before_accident_six", default: 0
+    t.integer "pain_after_accident_six", default: 0
+    t.integer "accident_six_pain_now", default: 0
     t.index ["patient_id"], name: "index_injuries_on_patient_id"
   end
 
@@ -326,6 +345,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_014452) do
     t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ae_tests", default: [], array: true
     t.index ["patient_id"], name: "index_treatments_on_patient_id"
   end
 

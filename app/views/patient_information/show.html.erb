@@ -26,13 +26,13 @@
           <hr/>
           <br/>
           <div>
-            <h2 >NAME: <%= @patient.first_name %>&nbsp;<%= @patient.sur_name %></h2>
+            <h2 >NAME: <%= @patient.first_name&.humanize %>&nbsp;<%= @patient.sur_name&.humanize %></h2>
           </div>
           <div>
             <h2>DATE OF BIRTH: <%= @patient.dob %></h2>
           </div>
           <div>
-            <h2>ADDRESS: <%= @patient.city %>&nbsp;<%= @patient.state %></h2>
+            <h2>ADDRESS: <%= @patient.city&.humanize %>&nbsp;<%= @patient.state&.humanize %></h2>
           </div>
           <div>
             <h2>DATE OF ACCIDENT: <%= @accident.date %></h2>
@@ -41,22 +41,22 @@
             <h2>DATE OF EXAMINATION: <%= @appointment.date %></h2>
           </div>
           <div>
-            <h2>VENUE OF CONSULTATION: <%= @appointment.examination_venue %></h2>
+            <h2>VENUE OF CONSULTATION: <%= @appointment.examination_venue&.humanize %></h2>
           </div>
           <div>
-            <h2>OCCUPATION: <%= @patient.ocuupation %></h2>
+            <h2>OCCUPATION: <%= @patient.ocuupation&.humanize %></h2>
           </div>
           <div>
-            <h2>TIME OFF WORK: <%= @appointment.any_time_off_work %></h2>
+            <h2>TIME OFF WORK: <%= @appointment.any_time_off_work ? "Yes" : "No" %></h2>
           </div>
           <div>
             <h2>VISIT AFTER THE ACCIDENT: <%= @appointment.visit_after_accident %></h2>
           </div>
           <div>
-            <h2>IDENTIFICATION PROVIDED: <%= @appointment.identity_proof %></h2>
+            <h2>IDENTIFICATION PROVIDED: <%= @appointment.identity_proof&.humanize %></h2>
           </div>
           <div>
-            <h2>REPORT REQUESTED BY: <%= @appointment.report_requested_by %></h2>
+            <h2>REPORT REQUESTED BY: <%= @appointment.report_requested_by&.humanize %></h2>
           </div>
           <div>
             <h2>SOLICITOR REF NO: <%= @appointment.solicitors_ref %></h2>
@@ -64,25 +64,31 @@
           <br/>
           <div>
             <h1 style="text-color: blue;">ACCIDENT DETAILS</h1>
-            <h2 style="text-transform: capitalize; font-weight: bold;">2.1 INJURIES SUSTAINED AS ADVISED BY THE CLAIMANT</h2>
           </div>
           <div>
-            <p>2.1.1 <%= @patient.first_name&.humanize %> was the <%= @accident.accident_victim %> of the vehicle which was involved in the Road Traffic Accident.</p>
-            <p>2.1.2 The vehicle involved in the accident was a <%= @accident.vehicle %>.</p>
-            <p>2.1.3 The third-party vehicle involved in the accident was a  <%= @accident.third_party_vehicle&.humanize %></p>
-            <p>2.1.4 The claimant was <%= @accident.seat_belted ? '' : 'not' %> seatbelted at the time of the impact.</p>
-            <p>2.1.5 The claimant was <%= @accident.jolted_fwd_or_bwd ? '' : 'not' %> jolted forward and backwards when the accident happened.</p>
-            <p>2.1.6 The accident happened at a <%= @accident.site_of_accident&.humanize %>.</p>
-            <p>2.1.7 The vehicle in which the claimant was travelling was <%= @accident.vehicle_fitted_with_head_restraint ? '' : 'not' %> fitted with a head restraint.</p>
-            <p>2.1.8 The vehicle in which the claimant was travelling was <%= @accident.travelling_speed %> at the time of the accident.</p>
-            <p>2.1.9 The third-party vehicle was moving at <%= @accident.third_party_vehicle_speed %>.</p>
-            <p>2.1.10 The vehicle in which the claimant was travelling in was <%= @accident.vehicle_category&.humanize %>.</p>
-            <p>2.1.11 The claimant was looking  <%= @accident.where_were_you_looking_at&.humanize %> at the time of impact.</p>
-            <p>2.1.13 The claimant <%= @accident.hit_the_car_interior ? '' : 'did not' %> hit the inside of the vehicle in which he was travelling.</p>
-            <p>2.1.14 The airbag was <%= @accident.air_bag_deployed ? '' : 'not' %> deployed at the point of the impact.</p>
-            <p>2.1.15 The <%= @accident.accident_scene_attendees&.humanize %> attended the scene of the accident.</p>
-            <p>2.1.16 The claimant could <%= @accident.able_to_exit_your_vehicle_unaided ? '' : 'not' %> get out of the car after the index accident.</p>
-            <p>2.1.17 The claimant was <%= @accident.state_after_accident&.humanize %> as a result of the index accident.</p>
+            <% if @accident.mechanisms_of_injury[0] == "Car Accident" %>
+              <h2 style="text-transform: capitalize; font-weight: bold;">2.1 INJURIES SUSTAINED AS ADVISED BY THE CLAIMANT</h2>
+              <p>2.1.1 <%= @patient.first_name&.humanize %> was the <%= @accident.accident_victim&.humanize&.downcase %> of the vehicle which was involved in the Road Traffic Accident.</p>
+              <p>2.1.2 The vehicle involved in the accident was a <%= @accident.vehicle %>.</p>
+              <p>2.1.3 The third-party vehicle involved in the accident was a  <%= @accident.third_party_vehicle&.humanize&.downcase %></p>
+              <p>2.1.4 The claimant was <%= @accident.seat_belted ? '' : 'not' %> seatbelted at the time of the impact.</p>
+              <p>2.1.5 The claimant was <%= @accident.jolted_fwd_or_bwd ? '' : 'not' %> jolted forward and backward when the accident happened.</p>
+              <p>2.1.6 The accident happened at a <%= @accident.site_of_accident&.humanize&.downcase %>.</p>
+              <p>2.1.7 The vehicle in which the claimant was traveling was <%= @accident.vehicle_fitted_with_head_restraint ? '' : 'not' %> fitted with a head restraint.</p>
+              <p>2.1.8 The vehicle in which the claimant was traveling was <%= @accident.travelling_speed %> at the time of the accident.</p>
+              <p>2.1.9 The third-party vehicle was moving at <%= @accident.third_party_vehicle_speed %>.</p>
+              <p>2.1.10 The vehicle in which the claimant was traveling is <%= @accident.vehicle_category&.humanize&.downcase %>.</p>
+              <p>2.1.11 The claimant was looking  <%= @accident.where_were_you_looking_at&.humanize&.downcase %> at the time of impact.</p>
+              <p>2.1.13 The claimant <%= @accident.hit_the_car_interior ? '' : 'did not' %> hit the inside of the vehicle in which he was travelling.</p>
+              <p>2.1.14 The airbag was <%= @accident.air_bag_deployed ? '' : 'not' %> deployed at the point of the impact.</p>
+              <p>2.1.15 The <%= @accident.accident_scene_attendees&.humanize&.downcase %> attended the scene of the accident.</p>
+              <p>2.1.16 The claimant could <%= @accident.able_to_exit_your_vehicle_unaided ? '' : 'not' %> get out of the car after the index accident.</p>
+              <p>2.1.17 The claimant was <%= @accident.state_after_accident&.humanize&.downcase %> as a result of the index accident.</p>
+            <% end %>
+            <% if @accident.mechanisms_of_injury.any? { |mechanism| ["Motorbike Accident", "Injury at work", "Injury at Public place"].include?(mechanism) } %>
+              <h2 style="text-transform: capitalize; font-weight: bold;">2.2 Description of Nonroad Traffic Accidents</h2>
+              <p><%= @accident.description_of_nonroad_traffice_accident %></p>
+            <% end %>
           </div>
           <br/>
           <div>
@@ -90,12 +96,24 @@
             <h2 style="text-transform: capitalize; font-weight: bold;">3.1 INJURIES ADVISED BY THE CLAIMANT</h2>
           </div>
           <div>
-            <p>3.1.1 <%= @injury.injury_one_name %> started in <%= @injury.injury_one_started_in %>. <%= @injury.injury_one_pain_resolved ? 'The pain has resolved' : '' %>.</p>
-            <p>3.1.2 <%= @injury.injury_two_name %> started in <%= @injury.injury_two_started_in %>. <%= @injury.injury_two_pain_resolved ? 'The pain has resolved' : '' %>.</p>
-            <p>3.1.3 <%= @injury.injury_three_name %> started in <%= @injury.injury_three_started_in %>. <%= @injury.injury_three_pain_resolved ? 'The pain has resolved' : '' %>.</p>
-            <p>3.1.4 <%= @injury.injury_four_name %> started in <%= @injury.injury_four_started_in %>. <%= @injury.injury_four_pain_resolved ? 'The pain has resolved' : '' %>.</p>
-            <p>3.1.5 <%= @injury.injury_five_name %> started in <%= @injury.injury_five_started_in %>. <%= @injury.injury_five_pain_resolved ? 'The pain has resolved' : '' %>.</p>
-            <p>3.1.6 <%= @injury.injury_six_name %> started in <%= @injury.injury_six_started_in %>. <%= @injury.injury_six_pain_resolved ? 'The pain has resolved' : '' %>.</p>
+            <% if @injury.injury_one_name.present? %>
+              <p>3.1.1 <%= @injury.injury_one_name %> injury started in <%= @injury.injury_one_started_in %>. <%= @injury.injury_one_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident: <%= @injury.pain_before_accident_one %>/10, Pain after accident: <%= @injury.pain_after_accident_one %>/10, Pain now: <%= @injury.accident_one_pain_now %>/10</p>
+            <% end%>
+            <% if @injury.injury_two_name.present? %>
+              <p>3.1.2 <%= @injury.injury_two_name %> injury started in <%= @injury.injury_two_started_in %>. <%= @injury.injury_two_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident: <%= @injury.pain_before_accident_two %>/10, Pain after accident: <%= @injury.pain_after_accident_two %>/10, Pain now: <%= @injury.accident_two_pain_now %>/10</p>
+            <% end%>
+            <% if @injury.injury_three_name.present? %>
+              <p>3.1.3 <%= @injury.injury_three_name %> injury started in <%= @injury.injury_three_started_in %>. <%= @injury.injury_three_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident: <%= @injury.pain_before_accident_three %>/10, Pain after accident: <%= @injury.pain_after_accident_three %>/10, Pain now: <%= @injury.accident_three_pain_now %>/10</p>
+            <% end%>
+            <% if @injury.injury_four_name.present? %>
+              <p>3.1.4 <%= @injury.injury_four_name %> injury started in <%= @injury.injury_four_started_in %>. <%= @injury.injury_four_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident: <%= @injury.pain_before_accident_four %>/10, Pain after accident: <%= @injury.pain_after_accident_four %>/10, Pain now: <%= @injury.accident_four_pain_now %>/10</p>
+            <% end%>
+            <% if @injury.injury_five_name.present? %>
+              <p>3.1.5 <%= @injury.injury_five_name %> injury started in <%= @injury.injury_five_started_in %>. <%= @injury.injury_five_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident: <%= @injury.pain_before_accident_five %>/10, Pain after accident: <%= @injury.pain_after_accident_five %>/10, Pain now: <%= @injury.accident_five_pain_now %>/10</p>
+            <% end%>
+            <% if @injury.injury_six_name.present? %>
+              <p>3.1.6 <%= @injury.injury_six_name %> injury started in <%= @injury.injury_six_started_in %>. <%= @injury.injury_six_pain_resolved ? 'The pain has resolved.' : '' %>Pain before accident:  <%= @injury.pain_before_accident_six %>/10, Pain after accident: <%= @injury.pain_after_accident_six %>/10, Pain now:  <%= @injury.accident_six_pain_now %>/10</p>
+            <% end%>
           </div>
           <br/>
           <div>
@@ -104,12 +122,12 @@
           </div>
           <div>
             <% if @treatment.went_to_ae %>
-              <p>4.1.1  The Claimant attended the AE at <%= @treatment.hospital_name %> after the index accident</p>
+              <p>4.1.1 The claimant attended the AE at <%= @treatment.hospital_name %> after the index accident.</p>
             <% else %>
               <p>4.1.1 The claimant did not attended the AE after the index accident.</p>
             <% end%>
-            <% if @treatment.ae_test.present? %>
-              <p>4.1.2 The Claimant <%= @treatment.ae_test&.humanize %> in the AE.</p>
+            <% if @treatment.ae_tests.present? %>
+              <p>4.1.2 The claimant have <%= @treatment.ae_tests.reject(&:empty?).join(', ').reverse.sub(',', ' dna ').reverse %> in the AE.</p>
             <% else %>
               <p>4.1.2 The claimant did not have Xray/MRI/CT Scan/ECG in the AE.</p>
             <% end%>
@@ -129,25 +147,25 @@
             <% if @treatment.gp_visit_after_accident %>
               <p>4.2.1 The claimant attended the GP after the index accident.</p>
             <% else %>
-              <p>4.2.1 The claimant did not attend the GP after the index accident. <%=  @treatment.no_gp_visit_reason %></p>
+              <p>4.2.1 The claimant did not attend the GP after the index accident. The claimant said, "<%=  @treatment.no_gp_visit_reason %>", and hence didn't attend.</p>
             <% end%>
             <p>4.2.2 The claimant's first visit to the GP was on <%=  @treatment.first_visit_after_accident&.strftime("%d-%m-%y") %>.</p>
             <p>4.2.3 The claimant attended the GP <%=  @treatment.further_visits_count %> times after the index accident.</p>
             <% if @treatment.gp_arrangements.present? %>
-              <p>4.2.4 The claimant attended the <%= @treatment.gp_arrangements %> after the index accident. As reported, <%=  @treatment.treatment_additional_details_expert_view %>.</p>
+              <p>4.2.4 The claimant attended the <%= @treatment.gp_arrangements.reject(&:empty?).join(', ').reverse.sub(',', ' dna ').reverse %> after the index accident. As reported, <%=  @treatment.treatment_additional_details_expert_view %>.</p>
             <% else %>
               <p>4.2.4 The claimant did not attend the 'X-RAY/MRI Scan/CT Scan/Hospital referral/Physiotherapy' after the index accident.</p>
             <% end%>
             <p>4.2.5 The claimant attended the <%=  @treatment.exercise&.humanize %> after the index accident.</p>
             <p>4.2.6 The claimant attended <%=  @treatment.total_sessions %> sessions.</p>
-            <p>4.2.7 The claimant physiotherapy is <%=  @treatment.treatment_completed ? "completed" : "not completed" %>.</p>
+            <p>4.2.7 The claimant's physiotherapy is <%=  @treatment.treatment_completed ? "completed" : "not completed" %>.</p>
             <p>4.2.8 The claimant <%=  @treatment.utilizing_painkiller ? "took" :  "do not take" %> painkillers after the index accident.</p>
-            <p>4.2.9 The claimant is <%=  @treatment.utilizing_painkiller ? "taking" :  "not taking" %> painkillers after the index accident suffering.</p>
+            <p>4.2.9 The claimant is <%= @treatment.utilizing_painkiller ? "taking" :  "not taking" %> painkillers after the index accident suffering.</p>
           </div>
           <br/>
           <div>
             <h1 style="text-color: blue;">5. PAST MEDICAL HISTORY</h1>
-            <h2 style="text-transform: capitalize; font-weight: bold;">5.1</h2>
+            <%# <h2 style="text-transform: capitalize; font-weight: bold;">5.1</h2> %>
           </div>
           <div>
             <p>5.1.1 The claimant <%=  @medical_history.past_similar_road_accident ? "suffered" :  "did not suffer" %>  from an RTA before the index accident.</p>
@@ -166,52 +184,52 @@
             <h2 style="text-transform: capitalize; font-weight: bold;">6.1 PSYCHOLOGICAL INJURY</h2>
           </div>
           <div>
-            <% if @injuries_effect.psychological_symptoms.present? %>
+            <% if @injuries_effect.present? && @injuries_effect.psychological_symptoms.present? %>
               <p>6.1.1 The claimant suffered from <%=  @injuries_effect.psychological_symptoms&.humanize %> due to the index accident.</p>
             <% else %>
               <p>6.1.1 The claimant did not suffer from psychological symptoms due to the index accident.</p>
             <% end %>
-            <p>6.1.2 The psychological symptoms have <%= @injuries_effect.psychological_symptoms_resolved ? "" : "not" %> resolved.</p>
+            <p>6.1.2 The psychological symptoms have <%= @injuries_effect.present? && @injuries_effect.psychological_symptoms_resolved ? "" : "not" %> resolved.</p>
           </div>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">6.2 DOMESTIC CIRCUMSTANCES</h2>
           </div>
           <div>
-            <% if @injuries_effect.taken_holidays %>
-              <p>6.2.1 The claimant has taken time off work due to the index accident. The claimant has taken <%=  @injuries_effect.total_holidays %> off work.</p>
+            <% if @injuries_effect.present? &&  @injuries_effect.taken_holidays %>
+              <p>6.2.1 The claimant has taken time off work due to the index accident. The claimant has taken <%= @injuries_effect.present? && @injuries_effect.total_holidays %> off work.</p>
             <% else %>
               <p>6.2.1 The claimant has not  taken time off work due to the index accident.</p>
             <% end %>
-            <p>6.2.2 The claimant is <%= @injuries_effect.returned_to_work ? "" : "not" %> back at work.</p>
-            <p>6.2.3 The claimant has <%= @injuries_effect.any_work_adaption_for_pain ? "" : "not" %> work adaptations to ease pain due to the index accident.</p>
+            <p>6.2.2 The claimant is <%= @injuries_effect.present? && @injuries_effect.returned_to_work ? "" : "not" %> back at work.</p>
+            <p>6.2.3 The claimant has <%= @injuries_effect.present? && @injuries_effect.any_work_adaption_for_pain ? "" : "not" %> work adaptations to ease pain due to the index accident.</p>
           </div>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">6.3 RECREATIONAL ACTIVITIES</h2>
           </div>
           <div>
-            <% if @injuries_effect.any_difficulty_with_house_work %>
-              <p>6.3.1 The claimant reported issues with domestic chores like <%=  @injuries_effect.difficulties_at_home %>.</p>
+            <% if @injuries_effect.present? &&  @injuries_effect.any_difficulty_with_house_work %>
+              <p>6.3.1 The claimant reported issues with domestic chores like <%= @injuries_effect.difficulties_at_home.reject(&:empty?).join(', ').reverse.sub(',', ' dna ').reverse %>.</p>
             <% else %>
               <p>6.3.1 The claimant did not report any issues with domestic chores as a result of the index accident.</p>
             <% end %>
-            <% if @injuries_effect.difficulty_resolved %>
+            <% if @injuries_effect.present? &&  @injuries_effect.difficulty_resolved %>
               <p>6.3.2 The claimant's issues have been resolved, in <%=  @injuries_effect.difficulty_resolved_in %>.</p>
             <% else %>
               <p>6.3.2 The claimant's issues have not resolved.</p>
             <% end %>
-            <% if @injuries_effect.suffer_sleeping_problem %>
+            <% if @injuries_effect.present? &&  @injuries_effect.suffer_sleeping_problem %>
               <p>6.3.3 The claimant reported sleeping difficulties after the index accident for <%=  @injuries_effect.how_long_sleeping_problem %>.</p>
             <% else %>
               <p>6.3.3 The claimant did not report sleeping difficulties after the index accident.</p>
             <% end %>
-            <% if @injuries_effect.activities_limited_by_symptoms %>
+            <% if @injuries_effect.present? && @injuries_effect.activities_limited_by_symptoms %>
               <p>6.3.4 The claimant reported that the leisure activities like <%=  @injuries_effect.activities_restricted_by_injury %> are affected as a result of the index accident.</p>
             <% else %>
               <p>6.3.4 The claimant said that no leisure activities have been affected as a result of the index accident.</p>
             <% end %>
-            <p>6.2.3 The claimant has <%= @injuries_effect.returned_to_activities ? "" : "not" %>  returned to leisure activities.</p>
+            <p>6.2.3 The claimant has <%= @injuries_effect.present? &&  @injuries_effect.returned_to_activities ? "" : "not" %>  returned to leisure activities.</p>
           </div>
           <br/>
           <div>
@@ -241,6 +259,11 @@
           <p>7.2.4 SLR: <%= @clinical_examination&.back_slr ? "Yes" : "No" %>, SLR crepitus detected.</p>
           <p>7.2.5 REFLEXES: There was <%= @clinical_examination&.back_reflexes ? "" : "no" %> neurological deficit noted in the upper limbs.</p>
           <p>7.2.5 SENSATIONS: There was <%= @clinical_examination&.back_sensations ? "" : "no" %> sensory deficit noted.</p>
+          <br/>
+          <div>
+            <h2 style="text-transform: capitalize; font-weight: bold;">7.4 OTHER JOINT EXAMINATION</h2>
+          </div>
+          <p>7.4.1 <%= @clinical_examination&.other_joint_examination %></p>
           <br/>
           <div>
             <h1 style="text-color: blue;">8. MEDICAL RECORDS REVIEW			</h1>
@@ -326,7 +349,7 @@
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.2 MEDICAL PROBLEMS OR COMPLICATIONS IN THE FUTURE AS A DIRECT CONSEQUENCE OF THE INJURIES SUSTAINED</h2>
           </div>
-          <p>9.2.1 The claimant has suffered from pain in the future and will <% @opinion.complications_in_future ? "" : "not" %> have repercussions on his post-index accident pain due to his prior sufferings.</p>
+          <p>9.2.1 The claimant has suffered from pain in the future and will <%= @opinion.complications_in_future ? "" : "not" %> have repercussions on his post-index accident pain due to his prior sufferings.</p>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.3 ACCIDENTS SINCE INDEX ACCIDENT AFFECTING SYMPTOMS</h2>
@@ -351,26 +374,26 @@
           </div>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.5.1 Inconviniences</h2>
-            <p>The inconveniences suffered as described by the claimant are <% @opinion.suffered_inconviniences ? "" : "not" %> reasonable.</p>
+            <p>The inconveniences suffered as described by the claimant are <%= @opinion.suffered_inconviniences ? "" : "not" %> reasonable.</p>
           </div>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.5.2 Work</h2>
-            <p>The effect of the injuries on the claimant’s  work is <% @opinion.effect_of_injurt_on_claimants_work_reasonable ? "" : "not" %> reasonable.</p>
+            <p>The effect of the injuries on the claimant’s  work is <%= @opinion.effect_of_injurt_on_claimants_work_reasonable ? "" : "not" %> reasonable.</p>
           </div>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.5.3 Treatment</h2>
-            <p>In my opinion, the treatment received for the severity of the injuries sustained is <% @opinion.severity_of_injuries ? "" : "not" %> reasonable.</p>
+            <p>In my opinion, the treatment received for the severity of the injuries sustained is <%= @opinion.severity_of_injuries ? "" : "not" %> reasonable.</p>
           </div>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.6 PROSPECTS IN THE OPEN LABOR MARKET</h2>
             <p>In my opinion and on the balance of probabilities the chances of the claimant obtaining employment in the open job market</p>
-            <p>should <% @opinion.consequences_of_physical_injuries ? "" : "not" %> have been disadvantaged as a direct consequence of physical injuries sustained in an index accident.</p>
+            <p>should have <%= @opinion.consequences_of_physical_injuries ? "" : "not" %> been disadvantaged as a direct consequence of physical injuries sustained in an index accident.</p>
           </div>
           <br/>
           <div>
             <h2 style="text-transform: capitalize; font-weight: bold;">9.7  LIFE EXPECTANCY/EFFECT ON FUTURE LIFE</h2>
-            <p>The claimant's life expectancy will <% @opinion.claimant_life_expentancy ? "" : "not" %> be affected as a direct result of the index accident.</p>
+            <p>The claimant's life expectancy will <%= @opinion.claimant_life_expentancy ? "" : "not" %> be affected as a direct result of the index accident.</p>
           </div>
           <br/>
           <div>

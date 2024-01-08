@@ -14,11 +14,10 @@ ActiveAdmin.register Appointment do
 
   form do |f|
     f.inputs do
-      f.input :patient, as: :select, collection: Patient.all.map { |p| [p.first_name, p.id] }, input_html: {required: true}
+      f.input :patient, as: :select, collection: Patient.all.map { |p| ["#{p.first_name} #{p.sur_name}", p.id] }, input_html: {required: true}
       f.input :date, as: :datepicker, input_html: {required: true}
       f.input :solicitors_ref, input_html: {required: true}
       f.input :examination_venue, input_html: {required: true}
-      f.input :any_time_off_work, input_html: {required: true}
       f.input :report_requested_by, input_html: {required: true}
     end
     f.actions
@@ -38,14 +37,14 @@ ActiveAdmin.register Appointment do
 
     def scoped_collection
       if current_admin_user.present?
-        Appointment.joins(:patient).where('patient.admin_user_id' => current_admin_user.id)
+        Appointment.joins(:patient).where(admin_user_id: current_admin_user.id)
       else
         super
       end
     end
 
     def create_params
-      params.require(:appointment).permit(:patient_id, :date, :solicitors_ref, :examination_venue, :any_time_off_work, :report_requested_by).merge(admin_user_id: current_admin_user.id)
+      params.require(:appointment).permit(:patient_id, :date, :solicitors_ref, :examination_venue, :report_requested_by).merge(admin_user_id: current_admin_user.id)
     end
   end
 
