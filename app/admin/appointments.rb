@@ -23,6 +23,23 @@ ActiveAdmin.register Appointment do
     f.actions
   end
 
+  show do
+    attributes_table do
+      row :date
+      row :examination_venue
+      row :report_requested_by
+      row "Patient" do |appointment|
+        "#{appointment.patient.first_name&.humanize} #{appointment.patient.sur_name&.humanize}"
+      end
+      row :created_at
+      row :updated_at
+      row "AdminUser" do |appointment|
+        "#{appointment.admin_user.email}"
+      end
+      # Add more rows for the fields you want to display
+    end
+  end
+
   controller do
     def create
       @appointment = current_admin_user.appointments.new(create_params)
