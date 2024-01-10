@@ -66,7 +66,7 @@
             <h1 style="text-color: blue;">ACCIDENT DETAILS</h1>
           </div>
           <div>
-            <% if @accident.mechanisms_of_injury[0] == "Car Accident" %>
+            <% if @accident.mechanisms_of_injury.include?("Car Accident") %>
               <h2 style="text-transform: capitalize; font-weight: bold;">2.1 INJURIES SUSTAINED AS ADVISED BY THE CLAIMANT</h2>
               <p>2.1.1 <%= @patient.first_name&.humanize %> was the <%= @accident.accident_victim&.humanize&.downcase %> of the vehicle which was involved in the Road Traffic Accident.</p>
               <p>2.1.2 The vehicle involved in the accident was a <%= @accident.vehicle %>.</p>
@@ -81,7 +81,7 @@
               <p>2.1.11 The claimant was looking  <%= @accident.where_were_you_looking_at&.humanize&.downcase %> at the time of impact.</p>
               <p>2.1.13 The claimant <%= @accident.hit_the_car_interior ? '' : 'did not' %> hit the inside of the vehicle in which he was travelling.</p>
               <p>2.1.14 The airbag was <%= @accident.air_bag_deployed ? '' : 'not' %> deployed at the point of the impact.</p>
-              <p>2.1.15 The <%= @accident.accident_scene_attendees&.humanize&.downcase %> attended the scene of the accident.</p>
+              <p>2.1.15 <%= @accident.accident_scene_attendees&.humanize %> attended the scene of the accident.</p>
               <p>2.1.16 The claimant could <%= @accident.able_to_exit_your_vehicle_unaided ? '' : 'not' %> get out of the car after the index accident.</p>
               <p>2.1.17 The claimant was <%= @accident.state_after_accident&.humanize&.downcase %> as a result of the index accident.</p>
             <% end %>
